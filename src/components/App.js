@@ -11,13 +11,24 @@ class App extends React.Component {
     this.state = {
       loading: true,
       loggedIn: false,
+      user: null,
     };
+  }
+
+  notLoggedInHandler() {
+    this.setState({loading: false, loggedIn: false});
+  }
+
+  loggedInHandler(User) {
+    this.setState({loading: false, loggedIn: true, user: User});
   }
 
   render() {
     if (this.state.loading) {
       return (
-        <LoadingScreen />
+        <LoadingScreen 
+          notLoggedIn={this.notLoggedInHandler.bind(this)}
+          loggedIn={this.loggedInHandler.bind(this)}/>
       );
     }
     if (this.state.loggedIn) {
