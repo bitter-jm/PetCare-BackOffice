@@ -7,7 +7,8 @@ class MessageItem extends Component {
 
   state = { numInboxes: null}
   componentWillMount() {
-    fetch(`https://petcare-server.herokuapp.com/inboxes`)
+    var data = {to: this.state.userLogged};
+    fetch(`https://petcare-server.herokuapp.com/inboxes`,{method: 'GET', body: JSON.stringify(data)})
       .then((response) => {
         return response.json()
       })
@@ -18,30 +19,8 @@ class MessageItem extends Component {
       console.log(this.props.userLogged)
   }
 
-  cutrefind(array,item){
-    var found = false;
-
-    for(var i = 0; i < array.length;++i){
-      if(array[i]==item) found = true;
-    }
-    return found;
-  }
-
   render() {
 		const date = <Moment fromNow date={this.props.data_creacio}/>
-    let votebutton;
-    if(this.props.usernameLogged == null){
-      votebutton = <button><img width="30" height="30" src={logoneutral}></img></button>
-    }
-    else if(this.props.usernameLogged == this.props.autor){
-      votebutton = <button ><img width="30" height="30" src={logoneutral}></img></button>
-    }
-    else if(this.cutrefind(this.props.vots,this.props.useridLogged) ){
-      votebutton = <button onClick={this.unvote.bind(this,this.props.id)}><img width="30" height="30" src={logounvote}></img></button>
-    }
-    else{
-      votebutton = <button onClick={this.vote.bind(this,this.props.id)}><img width="30" height="30" src={logovote}></img></button>
-    }
     return (	
     	<div className="">
     		<tr className="firstRow">
