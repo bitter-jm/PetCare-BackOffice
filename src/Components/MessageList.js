@@ -11,16 +11,16 @@ class messageList extends Component {
             {this.props.messages.map((message) => {
               return(
                 <MessageItem rank={this.props.messages.indexOf(message) + 1}
-                                  key={message.id}
-                                  id={message.id}
-                                  from={message.from}
-                                  createdDate={message.createdDate}
-                                  subject={message.subject}
-                                  body={message.body}
-                                  tag={message.tag}
-                                  usernameLogged = {this.props.username}
-                                  useridLogged = {this.props.userid}
-                                  renderParent = {this.props.renderParent}
+                              key={message.id}
+                              id={message.id}
+                              from={message.from}
+                              createdDate={message.createdDate}
+                              subject={message.subject}
+                              body={message.body}
+                              tag={message.tag}
+                              usernameLogged = {this.props.username}
+                              useridLogged = {this.props.userid}
+                              renderParent = {this.props.renderParent}
                 />
               )}
             )}

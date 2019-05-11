@@ -25,17 +25,19 @@ class MessageItem extends Component {
     	<div className="">
     		<tr className="firstRow">
     			<td className="">#{this.props.rank}</td>
-    			<td className="">
-                    <span>{votebutton}</span>
-                </td>
     			<td>
 	    			<div>
-		               	<p className="from">{this.props.from} </p>
-		               	<p className="title">{this.props.title}</p>
-		            </div>
-                </td>
+		          <p className="from">{this.props.from} </p>
+		        </div>
+          </td>
     		</tr>
     		<tr className="secondRow">
+    			<td>
+            <p className="title">{this.props.title}</p>    	
+            <span className="date">{date}</span>		
+          </td>
+    		</tr>
+        <tr className="thirdRow">
     			<td>
 		    		<span className="messageContent">{this.props.content}</span>
     			</td>
