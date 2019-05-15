@@ -1,8 +1,24 @@
 import React from 'react';
 import MessageList from "./MessageList";
-import "./css/HomeScreen.css";
+//import "./css/HomeScreen.css";
 
 class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {messages: [],username: ''}
+    this.componentWillMount = this.componentWillMount.bind(this);
+}
+
+  componentWillMount() {
+    fetch(`https://petcare-server.herokuapp.com/inboxes`,{method: 'GET'/*, body: JSON.stringify(data)*/})
+      .then((response) => {
+        return response.json()
+      })
+      .then((inboxes) => {
+        this.setState({ messages: inboxes, username: 'mariogamarro97@gmail.com' })
+      })
+      console.log(this.props.messages)
+  }
 
   render(){
     return(
@@ -10,7 +26,6 @@ class HomeScreen extends React.Component {
         <div className="Left">
         <MessageList messages = {this.state.messages} 
                           username = {this.state.username}
-                          userid = {this.state.userid}
                           renderParent = {() => {
                             this.setState({messages: []});
                             this.componentWillMount()

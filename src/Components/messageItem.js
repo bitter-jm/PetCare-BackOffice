@@ -1,50 +1,31 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "./css/messageItem.css"
+import "./css/MessageItem.css"
 import Moment from 'react-moment';
 import 'moment-timezone';
 class MessageItem extends Component {
 
-  state = { numInboxes: null}
-  componentWillMount() {
-    var data = {to: this.state.userLogged};
-    fetch(`https://petcare-server.herokuapp.com/inboxes`,{method: 'GET', body: JSON.stringify(data)})
-      .then((response) => {
-        return response.json()
-      })
-      .then((inboxes) => {
-        this.setState({ numInboxes: inboxes.length })
-        console.log(comments.length)
-      })
-      console.log(this.props.userLogged)
-  }
+ 
 
   render() {
-		const date = <Moment fromNow date={this.props.data_creacio}/>
+		const date = <Moment fromNow date={this.props.createdDate}/>
     return (	
-    	<div className="">
-    		<tr className="firstRow">
-    			<td className="">#{this.props.rank}</td>
-    			<td>
-	    			<div>
-		          <p className="from">{this.props.from} </p>
-		        </div>
-          </td>
-    		</tr>
-    		<tr className="secondRow">
-    			<td>
-            <p className="title">{this.props.title}</p>    	
-            <span className="date">{date}</span>		
-          </td>
-    		</tr>
-        <tr className="thirdRow">
-    			<td>
-		    		<span className="messageContent">{this.props.content}</span>
-    			</td>
-    		</tr>
+    	<div className="msg">
+    		<div className="firstRow">
+    			<p className="">{this.props.from}</p>
+    			<p className="from">{date}</p>
+    		</div>
+    		<div className="secondRow">
+    			<p className="title">Información de reserva {this.props.subject}</p>
+    		</div>
+        <div className="thirdRow">
+    			<div>
+		    		<p className="messageContent">Content:{this.props.body}</p>
+    			</div>
+    		</div>
     	</div>
     );
   }
 }
 
-export default messageItem;
+export default MessageItem;

@@ -17,7 +17,7 @@ class App extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <LoadingScreen />
+        <HomeScreen />
       );
     }
     if (this.state.loggedIn) {
@@ -27,7 +27,7 @@ class App extends React.Component {
     }
     if (!this.state.loggedIn) {
       return (
-        <LogInScreen />
+        <HomeScreen />
       )
     }
   }
