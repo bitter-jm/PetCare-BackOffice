@@ -9,8 +9,8 @@ class LoadingScreen extends React.Component {
 
     async getLocalStorageSession() {
         var session = await localStorage.getItem("session");
-        if (_.isNull) this.props.notLoggedIn();
-        else this.props.loggedIn();
+        if (_.isNull(session)) this.props.notLoggedIn();
+        else this.props.loggedIn(session);
     }
 
     render() {

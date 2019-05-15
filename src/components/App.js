@@ -14,13 +14,13 @@ class App extends React.Component {
       user: null,
     };
   }
-
+z
   notLoggedInHandler() {
     this.setState({loading: false, loggedIn: false});
   }
 
-  loggedInHandler(User) {
-    this.setState({loading: false, loggedIn: true, user: User});
+  loggedInHandler(session) {
+    this.setState({loading: false, loggedIn: true, user: session});
   }
 
   render() {
@@ -38,7 +38,7 @@ class App extends React.Component {
     }
     if (!this.state.loggedIn) {
       return (
-        <LogInScreen />
+        <LogInScreen loggedIn={this.loggedInHandler.bind(this)}/>
       )
     }
   }

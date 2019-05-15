@@ -8,18 +8,36 @@ class LogInScreen extends React.Component {
     super(props);
     this.state = {
       correo: "",
+      password: "",
     };
+  }
+
+  async submit() {
+    var resp = await axios({
+      method: 'post',
+      url: "https://petcare-server.herokuapp.com/users",
+      data: {
+          email: this.state.correo,
+      }
+    });
+    console.log(resp);
+    localStorage.setItem("session", resp.data);
+    this.props.loggedIn(resp.data);
   }
 
   render() {
     return (
       <div>
-        <input onChange={(event) => this.setState({correo: event.target.value})} type='text' value={this.state.correo}/>
+        <p>Correo:</p>
+        <input onChange={(event) => this.setState({correo: event.target.value})} type='text' value={this.state.correo} />
+        <p>Contraseña:</p>
+        <input onChange={(event) => this.setState({password: event.target.value})} type='password' value={this.state.password} style={{display:"block"}}/>
+        <button onClick={this.submit.bind(this)}>Login</button>
       </div>
     );
   }
 }
-  
+
 export default LogInScreen;
 
 /*
