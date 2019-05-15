@@ -21,7 +21,7 @@ class LogInScreen extends React.Component {
       }
     });
     console.log(resp);
-    localStorage.setItem("session", resp.data);
+    localStorage.setItem("session", JSON.stringify(resp.data));
     this.props.loggedIn(resp.data);
   }
 
@@ -39,11 +39,3 @@ class LogInScreen extends React.Component {
 }
 
 export default LogInScreen;
-
-/*
-
-{
-  email: correo
-}
-
-*/

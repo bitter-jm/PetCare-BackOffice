@@ -5,7 +5,9 @@ class NavigationBar extends React.Component {
 
     render() {
       return (
-      <div></div>
+      <div style={{backgroundColor:"#fff"}}>
+        {JSON.stringify(this.props.session)}
+      </div>
       );
     }
   }
