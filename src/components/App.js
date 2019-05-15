@@ -3,6 +3,7 @@ import React from 'react';
 import LoadingScreen from "./LoadingScreen"
 import HomeScreen from "./HomeScreen"
 import LogInScreen from "./LogInScreen"
+import NavigationBar from "./NavigationBar";
 
 class App extends React.Component {
 
@@ -14,7 +15,7 @@ class App extends React.Component {
       user: null,
     };
   }
-z
+
   notLoggedInHandler() {
     this.setState({loading: false, loggedIn: false});
   }
@@ -33,12 +34,18 @@ z
     }
     if (this.state.loggedIn) {
       return (
-        <HomeScreen />
+        <div>
+          <NavigationBar />
+          <HomeScreen />
+        </div>
       );
     }
     if (!this.state.loggedIn) {
       return (
-        <LogInScreen loggedIn={this.loggedInHandler.bind(this)}/>
+        <div>
+          <NavigationBar />
+          <LogInScreen loggedIn={this.loggedInHandler.bind(this)}/>
+        </div>
       )
     }
   }
