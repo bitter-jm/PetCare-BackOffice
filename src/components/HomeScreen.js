@@ -17,7 +17,7 @@ class HomeScreen extends React.Component {
       method: 'get',
       url: "https://petcare-server.herokuapp.com/inboxes",
       params: {
-          // to: this.props.session._id, 
+           to: this.props.session._id, 
       }
     });
     console.log('USER ID IS: '+ this.props.session._id);
