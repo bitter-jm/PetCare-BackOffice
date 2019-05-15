@@ -3,12 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
-=======
     "moment-timezone": "^0.5.25",
->>>>>>> 4756d4c0b53e117d2aed5fd5f80dc13aa7323f8e
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-moment": "^0.9.2",
