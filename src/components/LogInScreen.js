@@ -39,11 +39,3 @@ class LogInScreen extends React.Component {
 }
 
 export default LogInScreen;
-
-/*
-
-{
-  email: correo
-}
-
-*/

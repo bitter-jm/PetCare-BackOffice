@@ -35,16 +35,15 @@ class App extends React.Component {
     if (this.state.loggedIn) {
       console.log(JSON.stringify(this.state.user));
       return (
-        <div>
-          <NavigationBar />
+      <div>
+          <NavigationBar session={this.state.user} logout={this.notLoggedInHandler.bind(this)}/>
           <HomeScreen session={this.state.user}/>
-        </div>
+      </div>
       );
     }
     if (!this.state.loggedIn) {
       return (
         <div>
-          <NavigationBar />
           <LogInScreen loggedIn={this.loggedInHandler.bind(this)}/>
         </div>
       )
