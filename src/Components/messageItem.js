@@ -18,7 +18,7 @@ class MessageItem extends Component {
     		</div>
         <div className="thirdRow">
     			<div>
-		    		<p className="messageContent">Content:{this.props.body}</p>
+		    		<span className="messageContent">Content:{this.props.body}</span>
     			</div>
     		</div>
     	</div>

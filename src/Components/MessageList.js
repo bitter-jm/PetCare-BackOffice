@@ -4,21 +4,20 @@ import MessageItem from "./MessageItem";
 class messageList extends Component {
 
   render() {
+    console.log('MSG: '+this.props.messages);
     return (
       <div className="container">
         <table className="table">
           <tbody>
             {this.props.messages.map((message) => {
               return(
-                <MessageItem rank={this.props.messages.indexOf(message) + 1}
-                              key={message.id}
+                <MessageItem  key={message.id}
                               id={message.id}
                               from={message.from.email}
                               createdDate={message.createdDate}
                               subject={message.subject}
                               body={message.body}
                               tag={message.tag}
-                              usernameLogged = {this.props.username}
                               renderParent = {this.props.renderParent}
                 />
               )}

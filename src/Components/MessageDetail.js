@@ -5,6 +5,19 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 class MessageDetail extends Component {
 
+    state = { numComments: null}
+    componentWillMount() {
+      fetch(`https://fakernews-waslab.herokuapp.com/api/item/${this.props.id}/comments`)
+        .then((response) => {
+          return response.json()
+        })
+        .then((comments) => {
+          this.setState({ numComments: comments.length })
+          console.log(comments.length)
+        })
+        console.log(this.props.userLogged)
+    }
+
   render() {
 	const date = <Moment fromNow date={this.props.createdDate}/>
     return (	

@@ -33,10 +33,11 @@ class App extends React.Component {
       );
     }
     if (this.state.loggedIn) {
+      console.log(JSON.stringify(this.state.user));
       return (
         <div>
           <NavigationBar />
-          <HomeScreen session={this.state.session}/>
+          <HomeScreen session={this.state.user}/>
         </div>
       );
     }

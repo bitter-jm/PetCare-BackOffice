@@ -1,23 +1,32 @@
 import React from 'react';
 import MessageList from "./MessageList";
 //import "./css/HomeScreen.css";
+import axios from 'axios'; 
+import _ from 'lodash';
+
 
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {messages: [],username: ''}
+    this.state = {messages: []}
     this.componentWillMount = this.componentWillMount.bind(this);
 }
 
+  async submit() {
+    var resp = await axios({
+      method: 'get',
+      url: "https://petcare-server.herokuapp.com/inboxes",
+      params: {
+          // to: this.props.session._id, 
+      }
+    });
+    console.log('USER ID IS: '+ this.props.session._id);
+    console.log(resp);
+    this.setState({ messages: resp.data});
+  };
+
   componentWillMount() {
-    fetch(`https://petcare-server.herokuapp.com/inboxes`,{method: 'GET', params: {to:(this.props.session)}})
-      .then((response) => {
-        return response.json()
-      })
-      .then((inboxes) => {
-        this.setState({ messages: inboxes, username: 'mariogamarro97@gmail.com' })
-      })
-      console.log(this.props.messages)
+    this.submit();
   }
 
   render(){
