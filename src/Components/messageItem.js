@@ -5,8 +5,6 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 class MessageItem extends Component {
 
- 
-
   render() {
 		const date = <Moment fromNow date={this.props.createdDate}/>
     return (	

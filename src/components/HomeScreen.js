@@ -10,7 +10,7 @@ class HomeScreen extends React.Component {
 }
 
   componentWillMount() {
-    fetch(`https://petcare-server.herokuapp.com/inboxes`,{method: 'GET'/*, body: JSON.stringify(data)*/})
+    fetch(`https://petcare-server.herokuapp.com/inboxes`,{method: 'GET', params: {to:(this.props.session)}})
       .then((response) => {
         return response.json()
       })

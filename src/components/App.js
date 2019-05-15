@@ -36,7 +36,7 @@ class App extends React.Component {
       return (
         <div>
           <NavigationBar />
-          <HomeScreen />
+          <HomeScreen session={this.state.session}/>
         </div>
       );
     }
