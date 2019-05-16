@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import MessageItem from "./MessageItem";
-//import "./css/messageList.css"
+import "./css/MessageList.css"
 class messageList extends Component {
-
+//HACER CSS DE BACKGROUND
   render() {
     console.log('MSG: '+this.props.messages);
     return (
@@ -11,8 +11,7 @@ class messageList extends Component {
           <tbody>
             {this.props.messages.map((message) => {
               return(
-                <MessageItem  key={message.id}
-                              id={message.id}
+                <MessageItem  id={message.id}
                               from={message.from.email}
                               createdDate={message.createdDate}
                               subject={message.subject}

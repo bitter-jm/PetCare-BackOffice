@@ -10,8 +10,8 @@ class MessageItem extends Component {
     return (	
     	<div className="msg">
     		<div className="firstRow">
-    			<p className="">{this.props.from}</p>
-    			<p className="from">{date}</p>
+    			<p className="">From: {this.props.from}</p>
+    			<p className="from">Received {date}</p>
     		</div>
     		<div className="secondRow">
     			<p className="title">Información de reserva {this.props.subject}</p>

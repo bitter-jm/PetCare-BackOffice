@@ -1,6 +1,7 @@
 import React from 'react';
 import MessageList from "./MessageList";
-//import "./css/HomeScreen.css";
+import MessageDetail from "./MessageDetail";
+import "./css/HomeScreen.css";
 import axios from 'axios'; 
 import _ from 'lodash';
 
@@ -44,7 +45,7 @@ class HomeScreen extends React.Component {
           />
         </div>
         <div className="Right">
-        {/* Componente de vista de elemento  */ }
+          <MessageDetail />
         </div>
       </div>
     )
