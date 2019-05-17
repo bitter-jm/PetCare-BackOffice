@@ -58,7 +58,7 @@ class MessageDetail extends Component {
   if(tag  = 'Approval Request') {
     modalType = 
     <div>
-        <button onClick={this.handleOpenModal}>Trigger Modal</button>
+        <button onClick={this.handleOpenModal}>Aceptar cuidador</button>
         
         <ReactModal 
            isOpen={this.state.showModal}
@@ -74,7 +74,7 @@ class MessageDetail extends Component {
   }
   else if(tag = 'Caring Request'){
     modalType = <div>
-    <button onClick={this.handleOpenModal}>Trigger Modal</button>
+    <button onClick={this.handleOpenModal}>Aceptar reserva</button>
     
     <ReactModal 
        isOpen={this.state.showModal}
@@ -90,7 +90,7 @@ class MessageDetail extends Component {
   }
   else if(tag = 'Ongoing Reservation'){
     modalType = <div>
-    <button onClick={this.handleOpenModal}>Trigger Modal</button>
+    <button onClick={this.handleOpenModal}>Ir a reserva</button>
     
     <ReactModal 
        isOpen={this.state.showModal}
