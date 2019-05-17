@@ -11,11 +11,13 @@ html, body {
 }
 
 .Left{
+    /* FALTA SCROLLBAR DE WEBKIT */
     height:100%;
     width:28% ;
     position: absolute;
     background-color: white;
     border-right: 2px solid lightgray;
+    overflow:scroll;
 }
 .Right{
     height:100%;

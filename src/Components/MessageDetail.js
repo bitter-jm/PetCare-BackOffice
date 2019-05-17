@@ -20,6 +20,13 @@ class MessageDetail extends Component {
   
   handleOpenModal () {
     this.setState({ showModal: true });
+    var tag = this.props.tag;
+    if(tag  = 'Approval Request') {
+      this.acceptCarer();
+    }
+    if(tag  = 'Caring Request') {
+      
+    }
   }
   
   handleCloseModal () {
@@ -28,17 +35,21 @@ class MessageDetail extends Component {
 
   async acceptCarer() {
     var resp = await axios({
-      method: 'get',
-      url: "https://petcare-server.herokuapp.com/inboxes",
-      params: {
-           to: this.props.session._id, 
-      }
+      method: 'put',
+      url: "https://petcare-server.herokuapp.com/user/"+this.props.auxId+"/validate",
     });
     console.log('USER ID IS: '+ this.props.session._id);
     console.log(resp);
-    this.setState({ messages: resp.data});
   };
 
+  async acceptReservation() {
+    var resp = await axios({
+      method: 'put',
+      url: "https://petcare-server.herokuapp.com/reservations/"+this.props.auxId,
+    });
+    console.log('USER ID IS: '+ this.props.session._id);
+    console.log(resp);
+  };
 
   render() {
 	const date = <Moment fromNow date={this.props.createdDate}/>
