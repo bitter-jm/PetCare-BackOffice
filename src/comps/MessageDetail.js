@@ -38,7 +38,7 @@ class MessageDetail extends Component {
       method: 'put',
       url: "https://petcare-server.herokuapp.com/user/"+this.props.auxId+"/validate",
     });
-    console.log(resp);
+    console.log(this.props.auxId);
   };
 
   async acceptReservation() {
@@ -46,7 +46,7 @@ class MessageDetail extends Component {
       method: 'put',
       url: "https://petcare-server.herokuapp.com/reservations/"+this.props.auxId,
     });
-    console.log(resp);
+    console.log(this.props.auxId);
   };
 
   render() {
