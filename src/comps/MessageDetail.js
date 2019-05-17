@@ -38,7 +38,6 @@ class MessageDetail extends Component {
       method: 'put',
       url: "https://petcare-server.herokuapp.com/user/"+this.props.auxId+"/validate",
     });
-    console.log('USER ID IS: '+ this.props.session._id);
     console.log(resp);
   };
 
