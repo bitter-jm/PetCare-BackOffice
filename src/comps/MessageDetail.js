@@ -112,11 +112,11 @@ class MessageDetail extends Component {
         <p className="from">Received {date}</p>
       </div>
       <div className="secondRow">
-        <p className="title">Información de reserva Nº{this.props.subject}</p>
+        <p className="title">{this.props.subject}</p>
       </div>
       <div className="thirdRow">
         <div>
-          <span className="messageText">Content: {this.props.body}</span>
+          <span className="messageText">{this.props.body}</span>
         </div>
       </div>
       {modalType}
