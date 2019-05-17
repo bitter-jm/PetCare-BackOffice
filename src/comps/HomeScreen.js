@@ -47,13 +47,12 @@ myCallbackParent = (dataFromChild) => {
       />  
     }
     else{
-      message = <p>Welcome!</p>;
+      message = <p id='welcome'>Welcome!</p>;
     }
     console.log(message);
     return(
-
       <div className="Home">
-        <div className="Left">
+        <div className="Left scrollbar" id="scroll">
         <MessageList messages = {this.state.messages} 
                           username = {this.state.username}
                           renderParent = {() => {
