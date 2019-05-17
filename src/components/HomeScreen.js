@@ -5,13 +5,18 @@ import "./css/HomeScreen.css";
 import axios from 'axios'; 
 import _ from 'lodash';
 
-
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {messages: []}
+    this.state = {messages: [], data: null}
     this.componentWillMount = this.componentWillMount.bind(this);
 }
+
+myCallbackParent = (dataFromChild) => {
+  this.setState({ data: dataFromChild });
+  console.log('CHECK 3');
+  console.log(dataFromChild);
+};
 
   async submit() {
     var resp = await axios({
@@ -31,6 +36,20 @@ class HomeScreen extends React.Component {
   }
 
   render(){
+    var message;
+    if(this.state.data != null){
+      message = <MessageDetail id={this.state.data.id}
+      from={this.state.data.from}
+      createdDate={this.state.data.createdDate}
+      subject={this.state.data.subject}
+      body={this.state.data.body}
+      tag={this.state.data.tag}
+      />  
+    }
+    else{
+      message = <p>Welcome!</p>;
+    }
+    console.log(message);
     return(
 
       <div className="Home">
@@ -39,13 +58,14 @@ class HomeScreen extends React.Component {
                           username = {this.state.username}
                           renderParent = {() => {
                             this.setState({messages: []});
-                            this.componentWillMount()
+                            this.componentWillMount();
                           }}
+                          callbackFromParent={this.myCallbackParent}
 
           />
         </div>
         <div className="Right">
-          <MessageDetail />
+          {message}
         </div>
       </div>
     )

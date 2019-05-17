@@ -4,24 +4,35 @@ import "./css/MessageItem.css"
 import Moment from 'react-moment';
 import 'moment-timezone';
 class MessageItem extends Component {
+	
+
+	someFn = () => {
+		this.props.callbackFromParent(this.props);
+		console.log('CHECK 1');
+		console.log(this.props);
+};
+
+
 
   render() {
 		const date = <Moment fromNow date={this.props.createdDate}/>
     return (	
-    	<div className="msg">
+    	<div className="msg" onClick={this.someFn}>
     		<div className="firstRow">
     			<p className="">From: {this.props.from}</p>
     			<p className="from">Received {date}</p>
     		</div>
     		<div className="secondRow">
-    			<p className="title">Información de reserva {this.props.subject}</p>
+    			<p className="title">Información de reserva Nº{this.props.subject}</p>
     		</div>
         <div className="thirdRow">
     			<div>
-		    		<span className="messageContent">Content:{this.props.body}</span>
+		    		<span className="messageContent">Content: {this.props.body}</span>
     			</div>
     		</div>
+				
     	</div>
+			
     );
   }
 }

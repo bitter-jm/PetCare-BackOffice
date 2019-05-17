@@ -3,6 +3,15 @@ import MessageItem from "./MessageItem";
 import "./css/MessageList.css"
 class messageList extends Component {
 //HACER CSS DE BACKGROUND
+
+
+myCallback = (dataFromChild) => {
+
+  this.props.callbackFromParent(dataFromChild);
+  console.log('CHECK 2');
+  console.log(dataFromChild);
+};
+
   render() {
     console.log('MSG: '+this.props.messages);
     return (
@@ -18,6 +27,7 @@ class messageList extends Component {
                               body={message.body}
                               tag={message.tag}
                               renderParent = {this.props.renderParent}
+                              callbackFromParent={this.myCallback}
                 />
               )}
             )}
