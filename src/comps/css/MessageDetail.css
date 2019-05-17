@@ -14,10 +14,10 @@ tbody{
 
 .Modal {
     position: absolute;
-    top: 40px;
-    left: 40px;
-    right: 40px;
-    bottom: 40px;
+    top: 200px;
+    left: 200px;
+    right: 200px;
+    bottom: 200px;
     background-color: white;
 
   }

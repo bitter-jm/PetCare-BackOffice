@@ -23,11 +23,11 @@ class MessageItem extends Component {
     			<p className="from">Received {date}</p>
     		</div>
     		<div className="secondRow">
-    			<p className="title">Información de reserva Nº{this.props.subject}</p>
+    			<p className="title">{this.props.subject}</p>
     		</div>
         <div className="thirdRow">
     			<div>
-		    		<span className="messageContent">Content: {this.props.body}</span>
+		    		<span className="messageContent">{this.props.body}</span>
     			</div>
     		</div>
 				
