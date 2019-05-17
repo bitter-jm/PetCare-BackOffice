@@ -1,6 +1,9 @@
 {
   "name": "backoffice",
   "version": "0.1.0",
+  "engines": {
+    "node": "10.10.0"
+  },
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
