@@ -18,6 +18,7 @@ class ChatDetail extends Component {
   }
   
   componentWillMount() {
+    if (!_.isUndefined(this.props.me)) this.setState({me:this.props.me, other:this.props.other});
     console.log("Cargado");
     this.getMessages();
   }
