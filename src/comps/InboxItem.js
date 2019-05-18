@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import "./css/MessageItem.css"
+
 import Moment from 'react-moment';
 import 'moment-timezone';
 class MessageItem extends Component {
@@ -18,19 +17,26 @@ class MessageItem extends Component {
 		const date = <Moment fromNow date={this.props.createdDate}/>
     return (	
     	<div className="msg" onClick={this.someFn}>
-    		<div className="firstRow">
-    			<p className="">From: {this.props.from}</p>
-    			<p className="from">Received {date}</p>
-    		</div>
-    		<div className="secondRow">
-    			<p className="title">{this.props.subject}</p>
-    		</div>
-        <div className="thirdRow">
-    			<div>
-		    		<span className="messageContent">{this.props.body}</span>
-    			</div>
-    		</div>
-				
+				<div style={{display:"flex", flexDirection: "row", marginTop:"10px", color:"#202020", fontSize:17}}>
+					<img src={this.props.fromPhoto} style={{width:"60px", height:"60px", borderRadius: "10px"}} />
+					<div style={{display:"flex", flexDirection: "column", justifyContent: "space-evenly", marginLeft: "20px"}}>
+						<p style={{fontWeight:"bold"}}>{this.props.fromName}</p>
+						<p style={{fontWeight:"bold"}}>{this.props.from}</p>
+					</div>
+				</div>
+
+				<div style={{marginTop:"10px", marginBottom: "10px"}}>
+					<div className="secondRow">
+						<p className="title">{this.props.subject}</p>
+					</div>
+
+					<div className="messageContent" style={{marginTop:"6px"}}>{this.props.body}</div>
+
+				</div>
+
+				<div style={{display: "flex", flexDirection: "row-reverse"}}>
+					<p style={{fontStyle:"italic", fontWeight:"bold"}}>Received {date}</p>
+				</div>
     	</div>
 			
     );

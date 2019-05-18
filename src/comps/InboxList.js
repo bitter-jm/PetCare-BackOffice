@@ -32,6 +32,8 @@ myCallback = (dataFromChild) => {
                 <MessageItem  id={message.auxId}
                               from={message.from.email}
                               to={message.to.email}
+                              fromPhoto={message.from.userPicture}
+                              fromName={message.from.name}
                               createdDate={message.createdDate}
                               subject={message.subject}
                               body={message.body}

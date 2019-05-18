@@ -105,16 +105,16 @@ class MessageDetail extends Component {
   else modalType = '';
   
   return (	
-      <div className="msg">
-      <div className="firstRow">
-        <p className="">{this.props.from}</p>
-        <p className="">{date}</p>
+      <div className="msg" style={{margin:"20px", fontSize:"17px"}}>
+      <div className="firstRow" style={{fontSize:"19px"}}>
+        <p className="" style={{marginBottom: "6px"}}>{this.props.from}</p>
+        <p className="" style={{marginBottom: "10px", fontStyle:"italic"}}>{date}</p>
       </div>
       <div className="secondRow">
         <p className="title">{this.props.subject}</p>
       </div>
       <div className="thirdRow">
-        <div>
+        <div style={{marginBottom: "20px"}}>
           <span className="messageText">{this.props.body}</span>
         </div>
       </div>
