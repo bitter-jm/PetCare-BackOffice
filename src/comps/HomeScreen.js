@@ -2,6 +2,7 @@ import React from 'react';
 import InboxList from "./InboxList";
 import InboxDetail from "./InboxDetail";
 import ChatList from "./ChatList";
+import ChatDetail from "./ChatDetail";
 import "./css/HomeScreen.css";
 import axios from 'axios'; 
 import _ from 'lodash';
@@ -69,16 +70,16 @@ myCallbackParent = (dataFromChild) => {
         callbackFromParent={this.myCallbackParent}
         />
     }
-    else if(this.state.mode == "chat"){
-      if(this.state.data != null){
-         message = <ChatList messages = {this.state.messages} 
-         changeToInbox={this.changeToInbox.bind(this)}
-         username = {this.state.username}
-         renderParent = {() => {
-           this.setState({messages: []});
-           this.componentWillMount();
-         }}
-         callbackFromParent={this.myCallbackParent}
+    else if(this.state.mode == "chat") {
+      if(this.state.data != null) {
+        message = <ChatDetail 
+          messages = {this.state.messages} 
+          username = {this.state.username}
+          renderParent = {() => {
+            this.setState({messages: []});
+            this.componentWillMount();
+          }}
+          callbackFromParent={this.myCallbackParent}
          />
       }
       list= <ChatList messages = {this.state.messages} 

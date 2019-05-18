@@ -4,7 +4,6 @@ import "./css/MessageList.css"
 class chatList extends Component {
 //HACER CSS DE BACKGROUND
 
-
 myCallback = (dataFromChild) => {
 
   this.props.callbackFromParent(dataFromChild);
