@@ -1,6 +1,7 @@
 import React from 'react';
 import MessageList from "./MessageList";
 import MessageDetail from "./MessageDetail";
+import ChatList from "./ChatList";
 import "./css/HomeScreen.css";
 import axios from 'axios'; 
 import _ from 'lodash';
@@ -8,7 +9,7 @@ import _ from 'lodash';
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {messages: [], data: null}
+    this.state = {messages: [], data: null, mode:'inbox'}
     this.componentWillMount = this.componentWillMount.bind(this);
 }
 
@@ -18,7 +19,7 @@ myCallbackParent = (dataFromChild) => {
   console.log(dataFromChild);
 };
 
-  async submit() {
+  async getMessages() {
     var resp = await axios({
       method: 'get',
       url: "https://petcare-server.herokuapp.com/inboxes",
@@ -32,19 +33,28 @@ myCallbackParent = (dataFromChild) => {
   };
 
   componentWillMount() {
-    this.submit();
+    this.getMessages();
   }
 
   render(){
     var message;
     if(this.state.data != null){
-      message = <MessageDetail id={this.state.data.id}
-      from={this.state.data.from}
-      createdDate={this.state.data.createdDate}
-      subject={this.state.data.subject}
-      body={this.state.data.body}
-      tag={this.state.data.tag}
-      />  
+      if(this.state.mode == 'inbox'){
+        message = <MessageDetail id={this.state.data.id}
+        from={this.state.data.from}
+        createdDate={this.state.data.createdDate}
+        subject={this.state.data.subject}
+        body={this.state.data.body}
+        tag={this.state.data.tag}
+        />  
+      }
+      if(this.state.mode == 'chat'){
+        message = <MessageDetail id={this.state.data.id}
+        from={this.state.data.from}
+        createdDate={this.state.data.createdDate}
+        text={this.state.data.text}
+        />  
+      }
     }
     else{
       message = <p id='welcome'>Welcome!</p>;
@@ -53,7 +63,7 @@ myCallbackParent = (dataFromChild) => {
     return(
       <div className="Home">
         <div className="Left scrollbar" id="scroll">
-        <MessageList messages = {this.state.messages} 
+        <ChatList messages = {this.state.messages} 
                           username = {this.state.username}
                           renderParent = {() => {
                             this.setState({messages: []});
