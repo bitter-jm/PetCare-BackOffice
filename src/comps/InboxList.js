@@ -16,6 +16,15 @@ myCallback = (dataFromChild) => {
     console.log('MSG: '+this.props.messages);
     return (
       <div className="container">
+      <div style={{backgroundColor:"#337ab7", color: "white", fontWeight: "bold", display:"flex"}}>
+        <div style={{padding: "10px", textAlign: "center", flex:1}}
+          onClick={() => this.props.changeToChat()}>
+          Messages
+        </div>
+        <div style={{backgroundColor: "#2e5d94", padding: "10px", textAlign: "center", flex:1}}>
+          Inbox
+        </div>
+      </div>
         <table className="table">
           <tbody>
             {this.props.messages.map((message) => {

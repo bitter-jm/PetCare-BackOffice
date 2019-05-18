@@ -9,7 +9,7 @@ import _ from 'lodash';
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {messages: [], data: null, mode:"chat"}
+    this.state = {messages: [], data: null, mode:"inbox"}
     this.componentWillMount = this.componentWillMount.bind(this);
 }
 
@@ -36,7 +36,12 @@ myCallbackParent = (dataFromChild) => {
     this.getMessages();
   }
 
+  changeToChat() {
+    this.setState({mode: "chat"});
+  }
+
   render(){
+    console.log("Rendering: " + this.state.mode);
     var message,
     list;
     if(this.state.mode == "inbox"){
@@ -49,7 +54,9 @@ myCallbackParent = (dataFromChild) => {
         tag={this.state.data.tag}
         />  
       }
-        list= <InboxList messages = {this.state.messages} 
+        list= <InboxList 
+        changeToChat={this.changeToChat.bind(this)}
+        messages = {this.state.messages} 
         username = {this.state.username}
         renderParent = {() => {
           this.setState({messages: []});
