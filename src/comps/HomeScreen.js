@@ -40,6 +40,10 @@ myCallbackParent = (dataFromChild) => {
     this.setState({mode: "chat"});
   }
 
+  changeToInbox() {
+    this.setState({mode: "inbox"});
+  }
+
   render(){
     console.log("Rendering: " + this.state.mode);
     var message,
@@ -73,7 +77,8 @@ myCallbackParent = (dataFromChild) => {
         // text={this.state.data.text}
         // />  
       }
-      list= <InboxList messages = {this.state.messages} 
+      list= <ChatList messages = {this.state.messages} 
+        changeToInbox={this.changeToInbox.bind(this)}
         username = {this.state.username}
         renderParent = {() => {
           this.setState({messages: []});
