@@ -1,6 +1,6 @@
 import React from 'react';
-import MessageList from "./MessageList";
-import MessageDetail from "./MessageDetail";
+import InboxList from "./InboxList";
+import InboxDetail from "./InboxDetail";
 import ChatList from "./ChatList";
 import "./css/HomeScreen.css";
 import axios from 'axios'; 
@@ -9,7 +9,7 @@ import _ from 'lodash';
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {messages: [], data: null, mode:'inbox'}
+    this.state = {messages: [], data: null, mode:"chat"}
     this.componentWillMount = this.componentWillMount.bind(this);
 }
 
@@ -37,10 +37,11 @@ myCallbackParent = (dataFromChild) => {
   }
 
   render(){
-    var message;
-    if(this.state.data != null){
-      if(this.state.mode == 'inbox'){
-        message = <MessageDetail id={this.state.data.id}
+    var message,
+    list;
+    if(this.state.mode == "inbox"){
+      if(this.state.data != null){
+        message = <InboxDetail id={this.state.data.id}
         from={this.state.data.from}
         createdDate={this.state.data.createdDate}
         subject={this.state.data.subject}
@@ -48,13 +49,31 @@ myCallbackParent = (dataFromChild) => {
         tag={this.state.data.tag}
         />  
       }
-      if(this.state.mode == 'chat'){
-        message = <MessageDetail id={this.state.data.id}
-        from={this.state.data.from}
-        createdDate={this.state.data.createdDate}
-        text={this.state.data.text}
-        />  
+        list= <InboxList messages = {this.state.messages} 
+        username = {this.state.username}
+        renderParent = {() => {
+          this.setState({messages: []});
+          this.componentWillMount();
+        }}
+        callbackFromParent={this.myCallbackParent}
+        />
+    }
+    else if(this.state.mode == "chat"){
+      if(this.state.data != null){
+        // message = <ChatDetail id={this.state.data.id}
+        // from={this.state.data.from}
+        // createdDate={this.state.data.createdDate}
+        // text={this.state.data.text}
+        // />  
       }
+      list= <InboxList messages = {this.state.messages} 
+        username = {this.state.username}
+        renderParent = {() => {
+          this.setState({messages: []});
+          this.componentWillMount();
+        }}
+        callbackFromParent={this.myCallbackParent}
+        />
     }
     else{
       message = <p id='welcome'>Welcome!</p>;
@@ -63,15 +82,7 @@ myCallbackParent = (dataFromChild) => {
     return(
       <div className="Home">
         <div className="Left scrollbar" id="scroll">
-        <ChatList messages = {this.state.messages} 
-                          username = {this.state.username}
-                          renderParent = {() => {
-                            this.setState({messages: []});
-                            this.componentWillMount();
-                          }}
-                          callbackFromParent={this.myCallbackParent}
-
-          />
+        {list}
         </div>
         <div className="Right">
           {message}

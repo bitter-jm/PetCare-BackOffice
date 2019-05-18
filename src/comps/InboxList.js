@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MessageItem from "./MessageItem";
+import MessageItem from "./InboxItem";
 import "./css/MessageList.css"
 class messageList extends Component {
 //HACER CSS DE BACKGROUND
