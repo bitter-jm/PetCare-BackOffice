@@ -11,7 +11,6 @@ myCallback = (dataFromChild) => {
 };
 
   render() {
-    console.log('MSG: '+this.props.messages);
     return (
       <div className="container">
       <div style={{backgroundColor:"#337ab7", color: "white", fontWeight: "bold", display:"flex"}}>
