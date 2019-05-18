@@ -71,11 +71,15 @@ myCallbackParent = (dataFromChild) => {
     }
     else if(this.state.mode == "chat"){
       if(this.state.data != null){
-        // message = <ChatDetail id={this.state.data.id}
-        // from={this.state.data.from}
-        // createdDate={this.state.data.createdDate}
-        // text={this.state.data.text}
-        // />  
+         message = <ChatList messages = {this.state.messages} 
+         changeToInbox={this.changeToInbox.bind(this)}
+         username = {this.state.username}
+         renderParent = {() => {
+           this.setState({messages: []});
+           this.componentWillMount();
+         }}
+         callbackFromParent={this.myCallbackParent}
+         />
       }
       list= <ChatList messages = {this.state.messages} 
         changeToInbox={this.changeToInbox.bind(this)}
