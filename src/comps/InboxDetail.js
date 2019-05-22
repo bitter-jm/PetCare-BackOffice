@@ -38,8 +38,7 @@ class MessageDetail extends Component {
       method: 'put',
       url: "https://petcare-server.herokuapp.com/user/"+this.props.auxId+"/validate",
     });
-    console.log('USER ID IS: '+ this.props.session._id);
-    console.log(resp);
+    console.log(this.props.auxId);
   };
 
   async acceptReservation() {
@@ -47,8 +46,7 @@ class MessageDetail extends Component {
       method: 'put',
       url: "https://petcare-server.herokuapp.com/reservations/"+this.props.auxId,
     });
-    console.log('USER ID IS: '+ this.props.session._id);
-    console.log(resp);
+    console.log(this.props.auxId);
   };
 
   render() {
@@ -58,7 +56,7 @@ class MessageDetail extends Component {
   if(tag  = 'Approval Request') {
     modalType = 
     <div>
-        <button onClick={this.handleOpenModal}>Aceptar cuidador</button>
+        <button className='button' onClick={this.handleOpenModal}>Aceptar cuidador</button>
         
         <ReactModal 
            isOpen={this.state.showModal}
@@ -74,7 +72,7 @@ class MessageDetail extends Component {
   }
   else if(tag = 'Caring Request'){
     modalType = <div>
-    <button onClick={this.handleOpenModal}>Aceptar reserva</button>
+    <button className='button' onClick={this.handleOpenModal}>Aceptar reserva</button>
     
     <ReactModal 
        isOpen={this.state.showModal}
@@ -90,7 +88,7 @@ class MessageDetail extends Component {
   }
   else if(tag = 'Ongoing Reservation'){
     modalType = <div>
-    <button onClick={this.handleOpenModal}>Ir a reserva</button>
+    <button className='button' onClick={this.handleOpenModal}>Ir a reserva</button>
     
     <ReactModal 
        isOpen={this.state.showModal}
@@ -107,17 +105,17 @@ class MessageDetail extends Component {
   else modalType = '';
   
   return (	
-      <div className="msg">
-      <div className="firstRow">
-        <p className="">From: {this.props.from}</p>
-        <p className="from">Received {date}</p>
+      <div className="msg" style={{margin:"20px", fontSize:"17px"}}>
+      <div className="firstRow" style={{fontSize:"19px"}}>
+        <p className="" style={{marginBottom: "6px"}}>{this.props.from}</p>
+        <p className="" style={{marginBottom: "10px", fontStyle:"italic"}}>{date}</p>
       </div>
       <div className="secondRow">
-        <p className="title">Información de reserva Nº{this.props.subject}</p>
+        <p className="title">{this.props.subject}</p>
       </div>
       <div className="thirdRow">
-        <div>
-          <span className="messageText">Content: {this.props.body}</span>
+        <div style={{marginBottom: "20px"}}>
+          <span className="messageText">{this.props.body}</span>
         </div>
       </div>
       {modalType}

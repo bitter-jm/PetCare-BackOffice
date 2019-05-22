@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./css/MessageItem.css"
 import Moment from 'react-moment';
 import 'moment-timezone';
-class MessageItem extends Component {
+class ChatItem extends Component {
 	
 
 	someFn = () => {
@@ -22,12 +22,9 @@ class MessageItem extends Component {
     			<p className="">From: {this.props.from}</p>
     			<p className="from">Received {date}</p>
     		</div>
-    		<div className="secondRow">
-    			<p className="title">Información de reserva Nº{this.props.subject}</p>
-    		</div>
         <div className="thirdRow">
     			<div>
-		    		<span className="messageContent">Content: {this.props.body}</span>
+		    		<span className="messageContent">{this.props.text}</span>
     			</div>
     		</div>
 				
@@ -37,4 +34,4 @@ class MessageItem extends Component {
   }
 }
 
-export default MessageItem;
+export default ChatItem;
