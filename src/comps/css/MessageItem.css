@@ -25,3 +25,16 @@ p{
     overflow: hidden;
     text-overflow: ellipsis; 
 } */
+
+.chatListComp {
+    font-weight: normal;
+}
+
+.chatList-name {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.chatList-date {
+    margin-bottom: 15px;
+}

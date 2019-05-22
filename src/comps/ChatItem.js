@@ -5,29 +5,15 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 class ChatItem extends Component {
 	
-
-	someFn = () => {
-		this.props.callbackFromParent(this.props);
-		console.log('CHECK 1');
-		console.log(this.props);
-};
-
-
-
   render() {
-		const date = <Moment fromNow date={this.props.createdDate}/>
+		const date = <Moment fromNow date={this.props.date}/>
     return (	
-    	<div className="msg" onClick={this.someFn}>
+    	<div className="msg">
     		<div className="firstRow">
-    			<p className="">From: {this.props.from}</p>
-    			<p className="from">Received {date}</p>
-    		</div>
-        <div className="thirdRow">
-    			<div>
-		    		<span className="messageContent">{this.props.text}</span>
-    			</div>
-    		</div>
-				
+    			<p className="chatListComp chatList-name">{this.props.user}</p>
+					<p className="chatListComp chatList-msg">Last message: {this.props.message}</p>
+    			<p className="chatListComp chatList-date">Received {date}</p>
+    		</div>				
     	</div>
 			
     );

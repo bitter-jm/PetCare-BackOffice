@@ -1,14 +1,71 @@
 import React, { Component } from "react";
 import ChatItem from "./ChatItem";
+import axios from 'axios';
 import "./css/MessageList.css"
 class chatList extends Component {
 //HACER CSS DE BACKGROUND
 
-myCallback = (dataFromChild) => {
+constructor(props) {
+  super(props);
+  this.state = {
+    lastMessages: [],
+  };
+}
 
-  this.props.callbackFromParent(dataFromChild);
-  console.log(dataFromChild);
+myCallback = (me, other) => {
+  this.props.callbackFromParent({me: me, other: other});
+  console.log({me: me, other: other});
 };
+
+  componentWillMount() {
+    this.loadUsersTalkedTo();
+  }
+
+  async loadUsersTalkedTo() {
+    var resp = await axios({
+      method: 'get',
+      url: "https://petcare-server.herokuapp.com/chats",
+      params: {}
+    });
+    var data = resp.data;
+    var indicesAEliminar = [];
+
+    data.forEach((m, i) => {
+      if ((m.from.email != this.props.me) && (m.to.email != this.props.me)) {
+        indicesAEliminar.push(i);
+      }
+    })
+    
+    for (var i = indicesAEliminar.length-1; i >= 0; --i) {
+      data.splice(indicesAEliminar[i],1);
+    }
+
+    var usersChated = []; //! ------------------------------------------------
+    data.forEach((msg => {
+      var other;
+      if (msg.to.email != this.props.me) other = msg.to.email;
+      else if (msg.from.email != this.props.me) other = msg.from.email;
+      if (!usersChated.includes(other)) usersChated.push(other);
+    }));
+
+    var lastMessages = []; //! ------------------------------------------------
+    usersChated.forEach((user) => {
+      var message = "";
+      var lastDate;
+      data.forEach((msg => {
+        if (msg.to.email == user || msg.from.email == user) {
+          var newDate = new Date(msg.createdDate);
+          if (!(newDate < lastDate)) {
+            message = msg.text;
+            lastDate = newDate;
+          }
+        }
+      }));
+      lastMessages.push({date:lastDate, message, user});
+    });
+    //console.log(lastMessages);
+    this.setState({lastMessages});
+  }
 
   render() {
     return (
@@ -24,16 +81,14 @@ myCallback = (dataFromChild) => {
       </div>
         <table className="table">
           <tbody>
-            {this.props.messages.map((message) => {
+            {this.state.lastMessages.map((message) => {
               return(
-                <ChatItem  id={message.auxId}
-                              from={message.from.email}
-                              to={message.to.email}
-                              createdDate={message.createdDate}
-                              text={message.text}
-                              renderParent = {this.props.renderParent}
-                              callbackFromParent={this.myCallback}
+                <div onClick={() => this.myCallback(this.props.me, message.user)}>
+                <ChatItem  user={message.user}
+                              message={message.message}
+                              date={message.date}
                 />
+                </div>
               )}
             )}
           </tbody>

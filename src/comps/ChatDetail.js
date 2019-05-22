@@ -4,22 +4,26 @@ import 'moment-timezone';
 import axios from 'axios'; 
 import _ from 'lodash';
 import 'react-chat-elements/dist/main.css';
-import { MessageBox, MessageList } from 'react-chat-elements';
+import { MessageList } from 'react-chat-elements';
 
 class ChatDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      me: "mariogamarro97@gmail.com",
-      other: "joan3pastor@gmail.com",
+      me: "",
+      other: "",
       messages: [],
     };
 
   }
   
   componentWillMount() {
-    if (!_.isUndefined(this.props.me)) this.setState({me:this.props.me, other:this.props.other});
-    console.log("Cargado");
+    this.updateMessages();
+  }
+
+  updateMessages() {
+    if (this.props.other == this.state.other) return
+    this.setState({me:this.props.me, other:this.props.other});
     this.getMessages();
   }
 
@@ -30,16 +34,22 @@ class ChatDetail extends Component {
       params: {}
     });
     var data = resp.data;
+    var indicesAEliminar = [];
 
     data.forEach((m, i) => {
       if ((m.from.email != this.state.me) && (m.to.email != this.state.me)) {
-        data.splice(i, 1);
+        indicesAEliminar.push(i);
+
       }
       if ((m.from.email != this.state.other) && (m.to.email != this.state.other)) {
-        data.splice(i, 1);
+        indicesAEliminar.push(i);
       }
     })
     
+    for (var i = indicesAEliminar.length-1; i >= 0; --i) {
+      data.splice(indicesAEliminar[i],1);
+    }
+
     var messages = data.map((m) => {
       var position = "left";
       if (m.from.email == this.state.me) position = "right";
@@ -48,15 +58,16 @@ class ChatDetail extends Component {
         type: "text",
         text: m.text,
         date: new Date(m.createdDate),
+        key: Math.random(),
       };
     })
-
-    console.log(messages);
     this.setState({messages});
   }
 
 
   render() {
+
+    this.updateMessages();
     return (
 
       <div style={{}}>

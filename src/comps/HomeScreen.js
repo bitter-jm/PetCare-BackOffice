@@ -73,23 +73,15 @@ myCallbackParent = (dataFromChild) => {
     else if(this.state.mode == "chat") {
       if(this.state.data != null) {
         message = <ChatDetail 
-          messages = {this.state.messages} 
-          username = {this.state.username}
-          renderParent = {() => {
-            this.setState({messages: []});
-            this.componentWillMount();
-          }}
-          callbackFromParent={this.myCallbackParent}
+                    me = {this.state.data.me} 
+                    other = {this.state.data.other}
          />
       }
-      list= <ChatList messages = {this.state.messages} 
-        changeToInbox={this.changeToInbox.bind(this)}
-        username = {this.state.username}
-        renderParent = {() => {
-          this.setState({messages: []});
-          this.componentWillMount();
-        }}
-        callbackFromParent={this.myCallbackParent}
+      list = <ChatList
+                messages = {this.state.messages} 
+                changeToInbox={this.changeToInbox.bind(this)}
+                callbackFromParent={this.myCallbackParent}
+                me={this.props.session.email}
         />
     }
     else{
