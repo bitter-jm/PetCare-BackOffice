@@ -12,6 +12,8 @@ class ChatDetail extends Component {
     this.state = {
       me: "",
       other: "",
+      meId: "",
+      otherId: "",
       messages: [],
       newMessage: '',
     };
@@ -75,11 +77,17 @@ class ChatDetail extends Component {
         key: Math.random(),
       };
     })
+
+    if (data[0].to.email == this.state.me) this.setState({meId: data[0].to._id, otherId: data[0].from._id});
+    else this.setState({meId: data[0].from._id, otherId: data[0].to._id});
+
     this.setState({messages});
   }
 
 
   render() {
+
+    console.log("IDs: " + this.state.meId + " - " + this.state.otherId);
 
     this.updateMessages();
     return (
