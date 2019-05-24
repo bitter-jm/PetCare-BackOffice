@@ -10,8 +10,8 @@ class ChatDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      me: "mariogamarro97@gmail.com",
-      other: "joan3pastor@gmail.com",
+      me: "",
+      other: "",
       messages: [],
       newMessage: '',
     };
@@ -84,7 +84,7 @@ class ChatDetail extends Component {
     this.updateMessages();
     return (
 
-      <div style={{}}>
+      <div style={{display:"flex", flexDirection:"column", justifyContent:"space-between", height: "100%"}}>
         <div style={{padding:"30px"}}>
 
 
@@ -95,7 +95,8 @@ class ChatDetail extends Component {
           dataSource={this.state.messages} />
 
         </div>
-        <div className='rce-container-input'>
+        
+        <div style={{marginBottom:"15px"}}>
         <Input
           placeholder="Type here..."
           multiline={true}
@@ -111,7 +112,7 @@ class ChatDetail extends Component {
           }
         />
         </div>
-  
+
       </div>
       );
   }
