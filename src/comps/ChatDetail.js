@@ -17,17 +17,28 @@ class ChatDetail extends Component {
       messages: [],
       newMessage: '',
     };
-
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async submit(){
+  handleChange(event) {
+    this.setState({newMessage: event.target.value});
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    let state = this.state;
+    this.submit(state);
+  }
+
+  async submit(state){
     var resp = await axios({
       method: 'post',
       url: "https://petcare-server.herokuapp.com/chats",
-      params: {
-        from: this.state.me,
-        to: this.state.other,
-        text: this.state.newMessage,
+      data: {
+        from: state.meId,
+        to: state.otherId,
+        text: state.newMessage,
       }
     });
     this.getMessages();
@@ -93,13 +104,13 @@ class ChatDetail extends Component {
     return (
 
       <div style={{display:"flex", flexDirection:"column", justifyContent:"space-between", height: "100%"}}>
-        <div style={{padding:"30px"}}>
+        <div id="scroll" style={{padding:"30px", overflowY:"scroll", bottom:'5%'}}>
 
 
         <MessageList
           className='message-list'
           lockable={true}
-          toBottomHeight={'100%'}
+          toBottomHeight='80%'
           dataSource={this.state.messages} />
 
         </div>
@@ -107,15 +118,15 @@ class ChatDetail extends Component {
         <div style={{marginBottom:"15px"}}>
         <Input
           placeholder="Type here..."
-          multiline={true}
+          multiline={false}
           value={this.state.newMessage}
-          // onSubmit={this.submit()}
+           onChange={this.handleChange}
           rightButtons={
             <Button
               color='white'
               backgroundColor='black'
               text='Send'
-              onClick={() => this.submit()}
+              onClick={this.handleSubmit}
               />
           }
         />
