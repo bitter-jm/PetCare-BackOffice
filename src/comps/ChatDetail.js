@@ -1,20 +1,34 @@
 import React, { Component } from "react";
-import "./css/MessageDetail.css"
+import "./css/ChatDetail.css"
 import 'moment-timezone';
 import axios from 'axios'; 
 import _ from 'lodash';
 import 'react-chat-elements/dist/main.css';
-import { MessageList } from 'react-chat-elements';
+import { MessageBox, MessageList,Input, Button  } from 'react-chat-elements';
 
 class ChatDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      me: "",
-      other: "",
+      me: "mariogamarro97@gmail.com",
+      other: "joan3pastor@gmail.com",
       messages: [],
+      newMessage: '',
     };
 
+  }
+
+  async submit(){
+    var resp = await axios({
+      method: 'post',
+      url: "https://petcare-server.herokuapp.com/chats",
+      params: {
+        from: this.state.me,
+        to: this.state.other,
+        text: this.state.newMessage,
+      }
+    });
+    this.getMessages();
   }
   
   componentWillMount() {
@@ -81,6 +95,22 @@ class ChatDetail extends Component {
           dataSource={this.state.messages} />
 
         </div>
+        <div className='rce-container-input'>
+        <Input
+          placeholder="Type here..."
+          multiline={true}
+          value={this.state.newMessage}
+          // onSubmit={this.submit()}
+          rightButtons={
+            <Button
+              color='white'
+              backgroundColor='black'
+              text='Send'
+              onClick={() => this.submit()}
+              />
+          }
+        />
+        </div>
   
       </div>
       );
@@ -88,3 +118,4 @@ class ChatDetail extends Component {
 }
 
 export default ChatDetail;
+
