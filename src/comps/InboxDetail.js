@@ -24,7 +24,7 @@ class MessageDetail extends Component {
       this.acceptCarer();
     }
     if(tag  = 'Caring Request') {
-      
+      this.acceptReservation();
     }
   }
   
@@ -35,17 +35,17 @@ class MessageDetail extends Component {
   async acceptCarer() {
     var resp = await axios({
       method: 'put',
-      url: "https://petcare-server.herokuapp.com/user/"+this.props.auxId+"/validate",
+      url: "https://petcare-server.herokuapp.com/user/"+this.props.id+"/validate",
     });
-    console.log(this.props.auxId);
+    console.log(this.props.id);
   };
 
   async acceptReservation() {
     var resp = await axios({
       method: 'put',
-      url: "https://petcare-server.herokuapp.com/reservations/"+this.props.auxId,
+      url: "https://petcare-server.herokuapp.com/reservations/"+this.props.id,
     });
-    console.log(this.props.auxId);
+    console.log(this.props.id);
   };
 
   render() {
@@ -70,7 +70,10 @@ class MessageDetail extends Component {
       </div>
   }
   else if(tag == 'Caring Request'){
-    modalType = <div>
+    modalType = 
+    
+    <div>
+    <img src={this.props.auxField} style={{width:"500px", height:"500px", borderRadius: "5px"}} />
     <button className='button' onClick={this.handleOpenModal}>Aceptar reserva</button>
     
     <ReactModal 

@@ -82,7 +82,7 @@ myCallbackParent = (dataFromChild) => {
                 changeToInbox={this.changeToInbox.bind(this)}
                 callbackFromParent={this.myCallbackParent}
                 me={this.props.session.email}
-                sessionID={this.props.session._id}
+                sessionId={this.props.session._id}
         />
     }
     else{

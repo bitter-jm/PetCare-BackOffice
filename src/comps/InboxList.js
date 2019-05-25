@@ -34,6 +34,7 @@ myCallback = (dataFromChild) => {
                               to={message.to.email}
                               fromPhoto={message.from.userPicture}
                               fromName={message.from.name}
+                              picture={message.auxField}
                               createdDate={message.createdDate}
                               subject={message.subject}
                               body={message.body}

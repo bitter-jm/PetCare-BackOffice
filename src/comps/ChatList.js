@@ -12,6 +12,7 @@ constructor(props) {
   this.state = {
     lastMessages: [],
   };
+  this.handleConversations = this.handleConversations.bind(this);
 }
 
 myCallback = (me, other) => {
@@ -20,16 +21,23 @@ myCallback = (me, other) => {
 };
 
   componentWillMount() {
-    this.loadUsersTalkedTo();
+    this.handleConversations();
   }
 
-  async loadUsersTalkedTo() {
+  handleConversations() {
+    let props = this.props;
+    console.log(this.props.sessionId);
+    this.loadUsersTalkedTo(props);
+  }
+
+  async loadUsersTalkedTo(props) {
+    console.log(props.sessionId);
     var resp = await axios({
       method: 'get',
       url: "https://petcare-server.herokuapp.com/chats",
       data: {
-        userA: this.props.sessionId
-      }
+        userA: props.sessionId
+      } 
     });
     var data = resp.data;
     var indicesAEliminar = [];
