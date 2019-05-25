@@ -90,7 +90,7 @@ myCallbackParent = (dataFromChild) => {
     console.log(message);
     return(
       <div className="Home">
-        <div className="Left scrollbar" id="scroll">
+        <div className="Left " id="scroll">
         {list}
         </div>
         <div className="Right">

@@ -5,6 +5,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import 'react-chat-elements/dist/main.css';
 import { MessageBox, MessageList,Input, Button  } from 'react-chat-elements';
+import socketIOClient from "socket.io-client";
 
 class ChatDetail extends Component {
   constructor(props) {
@@ -17,8 +18,17 @@ class ChatDetail extends Component {
       messages: [],
       newMessage: '',
     };
+    this.socket = socketIOClient('https://petcare-server.herokuapp.com');
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  _handleKeyDown = (e) =>{
+    console.log('JELOU');
+    if (e.key === 'Enter') {
+      this.handleSubmit(e);
+    }
   }
 
   handleChange(event) {
@@ -41,11 +51,16 @@ class ChatDetail extends Component {
         text: state.newMessage,
       }
     });
+    
     this.getMessages();
+    this.socket.emit("messageSent", this.state.otherId);
   }
   
   componentWillMount() {
     this.updateMessages();
+    const { endpoint } = this.state;
+    
+    this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.getMessages();});
   }
 
   updateMessages() {
@@ -62,7 +77,7 @@ class ChatDetail extends Component {
     });
     var data = resp.data;
     var indicesAEliminar = [];
-
+    this.refs.input.clear();
     data.forEach((m, i) => {
       if ((m.from.email != this.state.me) && (m.to.email != this.state.me)) {
         indicesAEliminar.push(i);
@@ -91,16 +106,17 @@ class ChatDetail extends Component {
 
     if (data[0].to.email == this.state.me) this.setState({meId: data[0].to._id, otherId: data[0].from._id});
     else this.setState({meId: data[0].from._id, otherId: data[0].to._id});
-
+    this.socket.emit('identification', this.state.meId);
     this.setState({messages});
   }
-
+  
 
   render() {
 
     console.log("IDs: " + this.state.meId + " - " + this.state.otherId);
 
     this.updateMessages();
+    
     return (
 
       <div style={{display:"flex", flexDirection:"column", justifyContent:"space-between", height: "100%"}}>
@@ -119,14 +135,17 @@ class ChatDetail extends Component {
         <Input
           placeholder="Type here..."
           multiline={false}
+          ref="input"
+          autofocus
           value={this.state.newMessage}
-           onChange={this.handleChange}
+          onChange={this.handleChange}
           rightButtons={
             <Button
               color='white'
               backgroundColor='black'
               text='Send'
               onClick={this.handleSubmit}
+              onKeyDown={this._handleKeyDown}
               />
           }
         />

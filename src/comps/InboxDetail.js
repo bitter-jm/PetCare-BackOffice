@@ -52,7 +52,7 @@ class MessageDetail extends Component {
 	const date = <Moment fromNow date={this.props.createdDate}/>
   var modalType;
   var tag = this.props.tag;
-  if(tag  = 'Approval Request') {
+  if(tag  == 'Approval Request') {
     modalType = 
     <div>
         <button className='button' onClick={this.handleOpenModal}>Aceptar cuidador</button>
@@ -69,7 +69,7 @@ class MessageDetail extends Component {
         </ReactModal>
       </div>
   }
-  else if(tag = 'Caring Request'){
+  else if(tag == 'Caring Request'){
     modalType = <div>
     <button className='button' onClick={this.handleOpenModal}>Aceptar reserva</button>
     
@@ -85,7 +85,7 @@ class MessageDetail extends Component {
     </ReactModal>
   </div>;
   }
-  else if(tag = 'Ongoing Reservation'){
+  else if(tag == 'Ongoing Reservation'){
     modalType = <div>
     <button className='button' onClick={this.handleOpenModal}>Ir a reserva</button>
     
@@ -98,6 +98,24 @@ class MessageDetail extends Component {
     >
       <p>Petición Aceptada!</p>
       <button onClick={this.handleCloseModal}>Close</button>
+    </ReactModal>
+  </div>
+  }
+  else if(tag == 'Ended Reservation'){
+    modalType = <div>
+    <button className='button' onClick={this.handleOpenModal}>Valorar reserva</button>
+    
+    <ReactModal 
+       isOpen={this.state.showModal}
+       contentLabel="onRequestClose Example"
+       onRequestClose={this.handleCloseModal}
+       className="Modal"
+       overlayClassName="Overlay"
+    >
+      <p>Petición Aceptada!</p>
+      <button onClick={this.handleCloseModal}>Close</button>
+
+
     </ReactModal>
   </div>
   }
