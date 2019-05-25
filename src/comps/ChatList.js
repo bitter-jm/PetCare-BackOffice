@@ -14,7 +14,7 @@ constructor(props) {
 
 myCallback = (me, other) => {
   this.props.callbackFromParent({me: me, other: other});
-  console.log({me: me, other: other});
+  //console.log({me: me, other: other});
 };
 
   componentWillMount() {
@@ -41,10 +41,16 @@ myCallback = (me, other) => {
     }
 
     var usersChated = []; //! ------------------------------------------------
+    var other;
+    var photo;
     data.forEach((msg => {
-      var other;
-      if (msg.to.email != this.props.me) other = msg.to.email;
-      else if (msg.from.email != this.props.me) other = msg.from.email;
+      
+      if (msg.to.email != this.props.me){
+        other = msg.to.email;
+      }
+      else if (msg.from.email != this.props.me){
+        other = msg.from.email;
+      } 
       if (!usersChated.includes(other)) usersChated.push(other);
     }));
 
@@ -54,6 +60,8 @@ myCallback = (me, other) => {
       var lastDate;
       data.forEach((msg => {
         if (msg.to.email == user || msg.from.email == user) {
+          if(msg.from.email ==user) photo = msg.from.userPicture;
+          if(msg.to.email ==user) photo = msg.to.userPicture;
           var newDate = new Date(msg.createdDate);
           if (!(newDate < lastDate)) {
             message = msg.text;
@@ -61,9 +69,9 @@ myCallback = (me, other) => {
           }
         }
       }));
-      lastMessages.push({date:lastDate, message, user});
+      lastMessages.push({date:lastDate, message, user,photo});
     });
-    //console.log(lastMessages);
+    console.log(lastMessages);
     this.setState({lastMessages});
   }
 
@@ -87,6 +95,7 @@ myCallback = (me, other) => {
                 <ChatItem  user={message.user}
                               message={message.message}
                               date={message.date}
+                              photo={message.photo}
                 />
                 </div>
               )}
