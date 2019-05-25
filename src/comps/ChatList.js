@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ChatItem from "./ChatItem";
 import axios from 'axios';
+
+
 import "./css/MessageList.css"
 class chatList extends Component {
 //HACER CSS DE BACKGROUND
@@ -42,7 +44,6 @@ myCallback = (me, other) => {
 
     var usersChated = []; //! ------------------------------------------------
     var other;
-    var photo;
     data.forEach((msg => {
       
       if (msg.to.email != this.props.me){
@@ -55,13 +56,22 @@ myCallback = (me, other) => {
     }));
 
     var lastMessages = []; //! ------------------------------------------------
+    var photo,userA,userB;
     usersChated.forEach((user) => {
       var message = "";
       var lastDate;
       data.forEach((msg => {
         if (msg.to.email == user || msg.from.email == user) {
-          if(msg.from.email ==user) photo = msg.from.userPicture;
-          if(msg.to.email ==user) photo = msg.to.userPicture;
+          if(msg.from.email ==user){
+            photo = msg.from.userPicture;
+            userA = msg.to._id;
+            userB = msg.from._id;
+          } 
+          if(msg.to.email == user){
+            photo = msg.to.userPicture;
+            userA = msg.from._id;
+            userB = msg.to._id;
+          }
           var newDate = new Date(msg.createdDate);
           if (!(newDate < lastDate)) {
             message = msg.text;
@@ -69,7 +79,8 @@ myCallback = (me, other) => {
           }
         }
       }));
-      lastMessages.push({date:lastDate, message, user,photo});
+      console.log(userA +'  ' + userB);
+      lastMessages.push({date:lastDate, message, user, photo, userA, userB});
     });
     console.log(lastMessages);
     this.setState({lastMessages});
@@ -78,6 +89,7 @@ myCallback = (me, other) => {
   render() {
     return (
       <div className="container">
+        
       <div style={{backgroundColor:"#337ab7", color: "white", fontWeight: "bold", display:"flex"}}>
         <div style={{backgroundColor: "#2e5d94", padding: "10px", textAlign: "center", flex:1}}>
           Messages
@@ -96,6 +108,8 @@ myCallback = (me, other) => {
                               message={message.message}
                               date={message.date}
                               photo={message.photo}
+                              userA={message.userA}
+                              userB={message.userB}
                 />
                 </div>
               )}

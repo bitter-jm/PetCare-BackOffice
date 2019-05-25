@@ -6,8 +6,11 @@
   },
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.0.0",
+    "@material-ui/icons": "^4.0.0",
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
+    "material-design-icons": "^3.0.1",
     "moment-timezone": "^0.5.25",
     "react": "^16.8.6",
     "react-chat-elements": "^10.5.0",
