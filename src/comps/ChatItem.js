@@ -39,7 +39,6 @@ class ChatItem extends Component {
     		<div className="firstRow">
 					<p className="chatListComp chatList-name">{this.props.user}</p>
 				<img src={this.props.photo} style={{width:"60px", height:"60px", borderRadius: "10px"}} />
-    			<p className="chatListComp chatList-name">{this.props.user}</p>
 					<IconButton aria-label="Delete" onClick={this.handleDelete}>
 						<DeleteIcon fontSize="small" />
 					</IconButton>
