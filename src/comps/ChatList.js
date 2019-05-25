@@ -27,7 +27,9 @@ myCallback = (me, other) => {
     var resp = await axios({
       method: 'get',
       url: "https://petcare-server.herokuapp.com/chats",
-      params: {}
+      data: {
+        userA: this.props.sessionId
+      }
     });
     var data = resp.data;
     var indicesAEliminar = [];
