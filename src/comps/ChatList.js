@@ -36,7 +36,7 @@ myCallback = (me, other) => {
       method: 'get',
       url: "https://petcare-server.herokuapp.com/chats",
       data: {
-        userA: props.sessionId
+        userA: this.props.sessionId
       } 
     });
     var data = resp.data;
