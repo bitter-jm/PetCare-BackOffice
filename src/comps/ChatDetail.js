@@ -73,7 +73,7 @@ class ChatDetail extends Component {
     var resp = await axios({
       method: 'get',
       url: "https://petcare-server.herokuapp.com/chats",
-      params: {userA:this.state.meId}
+      params: {userA:this.props.meId}
     });
     var data = resp.data;
     console.log(data);

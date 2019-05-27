@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import ChatItem from "./ChatItem";
-import axios from 'axios';
-
-
+import axios from 'axios';  
 import "./css/MessageList.css"
 class chatList extends Component {
 //HACER CSS DE BACKGROUND
@@ -35,26 +33,26 @@ myCallback = (me, other) => {
     var resp = await axios({
       method: 'get',
       url: "https://petcare-server.herokuapp.com/chats",
-      data: {
+      params:{
         userA: props.sessionId
-      } 
+      }
     });
-    var data = resp.data;
+    var datos = resp.data;
     var indicesAEliminar = [];
-
-    data.forEach((m, i) => {
+    console.log(datos);
+    datos.forEach((m, i) => {
       if ((m.from.email != this.props.me) && (m.to.email != this.props.me)) {
         indicesAEliminar.push(i);
       }
     })
     
     for (var i = indicesAEliminar.length-1; i >= 0; --i) {
-      data.splice(indicesAEliminar[i],1);
+      datos.splice(indicesAEliminar[i],1);
     }
 
     var usersChated = []; //! ------------------------------------------------
     var other;
-    data.forEach((msg => {
+    datos.forEach((msg => {
       
       if (msg.to.email != this.props.me){
         other = msg.to.email;
@@ -70,7 +68,7 @@ myCallback = (me, other) => {
     usersChated.forEach((user) => {
       var message = "";
       var lastDate;
-      data.forEach((msg => {
+      datos.forEach((msg => {
         if (msg.to.email == user || msg.from.email == user) {
           if(msg.from.email ==user){
             photo = msg.from.userPicture;
