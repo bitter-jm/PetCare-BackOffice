@@ -75,6 +75,7 @@ myCallbackParent = (dataFromChild) => {
         message = <ChatDetail 
                     me = {this.state.data.me} 
                     other = {this.state.data.other}
+                    meId = {this.props.session._id}
          />
       }
       list = <ChatList

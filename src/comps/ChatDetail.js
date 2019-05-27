@@ -24,12 +24,7 @@ class ChatDetail extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  _handleKeyDown = (e) =>{
-    console.log('JELOU');
-    if (e.key === 'Enter') {
-      this.handleSubmit(e);
-    }
-  }
+  
 
   handleChange(event) {
     this.setState({newMessage: event.target.value});
@@ -39,6 +34,14 @@ class ChatDetail extends Component {
     event.preventDefault();
     let state = this.state;
     this.submit(state);
+  }
+
+  _handleKeyDown(e){
+    console.log('JELOU');
+    console.log(e.key);
+    if (e.key === 'Enter') {
+      this.handleSubmit(e);
+    }
   }
 
   async submit(state){
@@ -70,6 +73,7 @@ class ChatDetail extends Component {
   }
 
   async getMessages() {
+    console.log(this.props.meId);
     var resp = await axios({
       method: 'get',
       url: "https://petcare-server.herokuapp.com/chats",
@@ -133,24 +137,27 @@ class ChatDetail extends Component {
         </div>
         
         <div style={{marginBottom:"15px"}}>
-        <Input
-          placeholder="Type here..."
-          multiline={false}
-          ref="input"
-          autofocus
-          value={this.state.newMessage}
-          onChange={this.handleChange}
-          rightButtons={
-            <Button
-              color='white'
-              backgroundColor='black'
-              text='Send'
-              onClick={this.handleSubmit}
-              onKeyDown={this._handleKeyDown}
-              />
-          }
-        />
-        </div>
+        <form onSubmit={(e)=>this.handleSubmit(e)}>
+          <Input
+            placeholder="Type here..."
+            multiline={false}
+            ref="input"
+            autofocus
+            value={this.state.newMessage}
+            onChange={this.handleChange}
+            rightButtons={
+              <Button
+              type="submit"
+                color='white'
+                backgroundColor='black'
+                text='Send'
+                onClick={this.handleSubmit}
+                
+                />
+            }
+          />
+          </form>
+          </div>
 
       </div>
       );
