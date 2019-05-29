@@ -60,6 +60,7 @@ class ChatDetail extends Component {
   }
   
   componentWillMount() {
+    if (this.props.other == null || this.props.me ==null) return ;
     this.updateMessages();
     const { endpoint } = this.state;
     
@@ -117,22 +118,23 @@ class ChatDetail extends Component {
   
 
   render() {
-
+    if (this.props.other == null || this.props.me ==null) return <div />;
+    var list = "";
     console.log("IDs: " + this.state.meId + " - " + this.state.otherId);
-
+    if(this.state.messages){
+      list = <MessageList
+      className='message-list'
+      lockable={true}
+      toBottomHeight='80%'
+      dataSource={this.state.messages} />
+    }
     this.updateMessages();
     
     return (
 
       <div style={{display:"flex", flexDirection:"column", justifyContent:"space-between", height: "100%"}}>
         <div id="scroll" style={{padding:"30px", overflowY:"scroll", bottom:'5%'}}>
-
-
-        <MessageList
-          className='message-list'
-          lockable={true}
-          toBottomHeight='80%'
-          dataSource={this.state.messages} />
+        {list}
 
         </div>
         

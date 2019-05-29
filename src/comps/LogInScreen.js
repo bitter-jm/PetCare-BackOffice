@@ -1,6 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 import axios from 'axios'; 
+import GoogleLoginButton from "./GoogleAuth/GoogleLoginButton";
+
 
 class LogInScreen extends React.Component {
 
@@ -28,6 +30,7 @@ class LogInScreen extends React.Component {
   render() {
     return (
       <div>
+         <GoogleLoginButton/>
         <p>Correo:</p>
         <input onChange={(event) => this.setState({correo: event.target.value})} type='text' value={this.state.correo} />
         <p>Contraseña:</p>
