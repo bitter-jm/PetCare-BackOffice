@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ChatItem from "./ChatItem";
 import axios from 'axios';  
 import "./css/MessageList.css"
+import socketIOClient from "socket.io-client";
+
 class chatList extends Component {
 //HACER CSS DE BACKGROUND
 
@@ -11,6 +13,8 @@ constructor(props) {
     lastMessages: [],
   };
   this.handleConversations = this.handleConversations.bind(this);
+  this.socket = socketIOClient('https://petcare-server.herokuapp.com');
+
 }
 
 myCallback = (me, other) => {
@@ -20,6 +24,8 @@ myCallback = (me, other) => {
 
   componentWillMount() {
     this.handleConversations();
+    this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.handleConversations();});
+
   }
 
   handleConversations() {
@@ -91,6 +97,7 @@ myCallback = (me, other) => {
       lastMessages.push({date:lastDate, message, user, photo, userA, userB});
     });
     console.log(lastMessages);
+    this.socket.emit('identification', userA);
     this.setState({lastMessages});
   }
 

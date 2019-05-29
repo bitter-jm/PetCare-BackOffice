@@ -12,7 +12,8 @@ class HomeScreen extends React.Component {
     super(props)
     this.state = {messages: [], data: null, mode:"inbox"}
     this.componentWillMount = this.componentWillMount.bind(this);
-}
+    
+  }
 
 myCallbackParent = (dataFromChild) => {
   this.setState({ data: dataFromChild });
