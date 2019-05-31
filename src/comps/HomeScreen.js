@@ -14,12 +14,17 @@ class HomeScreen extends React.Component {
     this.componentWillMount = this.componentWillMount.bind(this);
     
   }
+  myCallbackSearch = (dataFromChild) => {
+    this.setState({ data:{me: this.props.session.email,other: dataFromChild.name,otherId:dataFromChild.id}});
+    console.log('CHECKMATE');
+    console.log(dataFromChild);
+  };
 
-myCallbackParent = (dataFromChild) => {
-  this.setState({ data: dataFromChild });
-  console.log('CHECK 3');
-  console.log(dataFromChild);
-};
+  myCallbackParent = (dataFromChild) => {
+    this.setState({ data: dataFromChild });
+    console.log('CHECK 3');
+    console.log(dataFromChild);
+  };
 
   async getMessages() {
     var resp = await axios({
@@ -77,6 +82,7 @@ myCallbackParent = (dataFromChild) => {
                     me = {this.state.data.me} 
                     other = {this.state.data.other}
                     meId = {this.props.session._id}
+                    otherId = {this.state.data.otherId}
          />
       }
       list = <ChatList
@@ -85,6 +91,7 @@ myCallbackParent = (dataFromChild) => {
                 callbackFromParent={this.myCallbackParent}
                 me={this.props.session.email}
                 sessionId={this.props.session._id}
+                callbackFromParentSearch={this.myCallbackSearch}
         />
     }
     else{
@@ -93,7 +100,7 @@ myCallbackParent = (dataFromChild) => {
     console.log(message);
     return(
       <div className="Home">
-        <div className="Left " id="scroll">
+        <div className="Left ">
         {list}
         </div>
         <div className="Right">

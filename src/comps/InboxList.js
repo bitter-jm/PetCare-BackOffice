@@ -25,7 +25,8 @@ myCallback = (dataFromChild) => {
           Inbox
         </div>
       </div>
-        <table className="table">
+      <div className="bar" id="scroll">
+        <table >
           <tbody>
             {this.props.messages.map((message) => {
               return(
@@ -46,6 +47,7 @@ myCallback = (dataFromChild) => {
             )}
           </tbody>
         </table>
+      </div>
       </div>
     );
   }

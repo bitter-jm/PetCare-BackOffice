@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ChatItem from "./ChatItem";
+import SearchUsers from "./SearchUsers";
 import axios from 'axios';  
 import "./css/MessageList.css"
 import socketIOClient from "socket.io-client";
@@ -16,9 +17,14 @@ constructor(props) {
   this.socket = socketIOClient('https://petcare-server.herokuapp.com');
 
 }
+myCallbackSearch = (dataFromChild) => {
+  this.props.callbackFromParentSearch(dataFromChild);
+  console.log('CHECK HALF');
+  console.log(dataFromChild);
+};
 
-myCallback = (me, other) => {
-  this.props.callbackFromParent({me: me, other: other});
+myCallback = (me, other, userA, userB) => {
+  this.props.callbackFromParent({me: me, other: other, userA:userA, userB:userB});
   //console.log({me: me, other: other});
 };
 
@@ -84,7 +90,7 @@ myCallback = (me, other) => {
           if(msg.to.email == user){
             photo = msg.to.userPicture;
             userA = msg.from._id;
-            userB = msg.to._id;
+            userB = msg.to._id; 
           }
           var newDate = new Date(msg.createdDate);
           if (!(newDate < lastDate)) {
@@ -114,11 +120,19 @@ myCallback = (me, other) => {
           Inbox
         </div>
       </div>
+      <div style={{width:"100%"}}>
+        <SearchUsers 
+          sessionId ={this.props.sessionId}
+          callbackFromParent={this.myCallbackSearch}
+          >
+        </SearchUsers>
+      </div>
+      <div className="bar" id="scroll">
         <table className="table">
           <tbody>
             {this.state.lastMessages.map((message) => {
               return(
-                <div onClick={() => this.myCallback(this.props.me, message.user)}>
+                <div onClick={() => this.myCallback(this.props.me, message.user,message.userA, message.userB)}>
                 <ChatItem  user={message.user}
                               message={message.message}
                               date={message.date}
@@ -131,6 +145,7 @@ myCallback = (me, other) => {
             )}
           </tbody>
         </table>
+      </div>
       </div>
     );
   }

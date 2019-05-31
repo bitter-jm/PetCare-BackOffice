@@ -9,7 +9,7 @@ class MessageItem extends Component {
 		this.props.callbackFromParent(this.props);
 		console.log('CHECK 1');
 		console.log(this.props);
-};
+	};
 
 
 

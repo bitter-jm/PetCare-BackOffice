@@ -55,8 +55,8 @@ class MessageDetail extends Component {
   if(tag  == 'Approval Request') {
     modalType = 
     <div>
-        <button className='button' onClick={this.handleOpenModal}>Aceptar cuidador</button>
-        
+        <button className='button' onClick={this.handleOpenModal}>Aceptar cuidador</button> 
+        <img src={this.props.auxField} style={{width:"300px", height:"300px", borderRadius: "5px"}} />
         <ReactModal 
            isOpen={this.state.showModal}
            contentLabel="onRequestClose Example"
@@ -73,7 +73,6 @@ class MessageDetail extends Component {
     modalType = 
     
     <div>
-    <img src={this.props.auxField} style={{width:"500px", height:"500px", borderRadius: "5px"}} />
     <button className='button' onClick={this.handleOpenModal}>Aceptar reserva</button>
     
     <ReactModal 

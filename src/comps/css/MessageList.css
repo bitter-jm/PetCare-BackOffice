@@ -15,3 +15,13 @@
 {
 	background-color: #000000;
 }
+
+.bar{
+    /* FALTA SCROLLBAR DE WEBKIT */
+    height:91%;
+    width:100% ;
+    position: absolute;
+    background-color: white;
+    border-right: 2px solid lightgray;
+    overflow:scroll;
+}

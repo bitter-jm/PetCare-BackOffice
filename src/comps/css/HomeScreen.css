@@ -23,7 +23,7 @@ html, body {
     position: absolute;
     background-color: white;
     border-right: 2px solid lightgray;
-    overflow:scroll;
+    overflow: none;
 }
 .Right{
     height:91%;

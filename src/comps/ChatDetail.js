@@ -81,7 +81,7 @@ class ChatDetail extends Component {
       params: {userA:this.props.meId}
     });
     var data = resp.data;
-    console.log(data);
+    console.log('Messages: '+data);
     var indicesAEliminar = [];
     this.refs.input.clear();
     data.forEach((m, i) => {
@@ -109,9 +109,7 @@ class ChatDetail extends Component {
         key: Math.random(),
       };
     })
-
-    if (data[0].to.email == this.state.me) this.setState({meId: data[0].to._id, otherId: data[0].from._id});
-    else this.setState({meId: data[0].from._id, otherId: data[0].to._id});
+    this.setState({meId: this.props.meId, otherId: this.props.otherId});
     this.socket.emit('identification', this.state.meId);
     this.setState({messages});
   }
@@ -121,11 +119,12 @@ class ChatDetail extends Component {
     if (this.props.other == null || this.props.me ==null) return <div />;
     var list = "";
     console.log("IDs: " + this.state.meId + " - " + this.state.otherId);
-    if(this.state.messages){
+    if(this.state.messages != null){
       list = <MessageList
       className='message-list'
       lockable={true}
-      toBottomHeight='80%'
+      downButton={true}
+      downButtonBadge={true}
       dataSource={this.state.messages} />
     }
     this.updateMessages();
