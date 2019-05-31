@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "./css/MessageDetail.css"
 import Moment from 'react-moment';
+import './css/react-rater.scss'
 import 'moment-timezone';
+import AnimatedRater from "./AnimatedRater";
 import ReactModal from 'react-modal';
 import axios from 'axios'; 
 import _ from 'lodash';
@@ -11,6 +13,7 @@ class MessageDetail extends Component {
     super(props, context);
     this.state = {
       showModal: false,
+      valoracion:''
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -44,6 +47,19 @@ class MessageDetail extends Component {
     var resp = await axios({
       method: 'put',
       url: "https://petcare-server.herokuapp.com/reservations/"+this.props.id,
+    });
+    console.log(this.props.id);
+  };
+
+  async sendRate() {
+    var resp = await axios({
+      method: 'put',
+      url: "https://petcare-server.herokuapp.com/ratings",
+      data: {
+        // from: state.meId,
+        // to: state.otherId,
+        // text: state.newMessage,
+      }
     });
     console.log(this.props.id);
   };
@@ -114,8 +130,10 @@ class MessageDetail extends Component {
        className="Modal"
        overlayClassName="Overlay"
     >
-      <p>Petición Aceptada!</p>
-      <button onClick={this.handleCloseModal}>Close</button>
+      <p>Review your reservation!</p>
+      <AnimatedRater total={5} rating={2} />
+      <input value={this.state.valoracion}></input>
+      <button onClick={this.handleCloseModal}>Send Rating</button>
 
 
     </ReactModal>
