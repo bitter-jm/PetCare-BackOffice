@@ -24,7 +24,7 @@ myCallbackSearch = (dataFromChild) => {
 };
 
 myCallback = (me, other, userA, userB) => {
-  this.props.callbackFromParent({me: me, other: other, userA:userA, userB:userB});
+  this.props.callbackFromParent({me: me, other: other, meId:userA, otherId:userB});
   //console.log({me: me, other: other});
 };
 
@@ -103,6 +103,9 @@ myCallback = (me, other, userA, userB) => {
       lastMessages.push({date:lastDate, message, user, photo, userA, userB});
     });
     console.log(lastMessages);
+    lastMessages.sort(function(a, b) {
+      return new Date(b['date']) - new Date(a['date']);
+    });
     this.socket.emit('identification', userA);
     this.setState({lastMessages});
   }
