@@ -22,11 +22,13 @@ const getSuggestions = value => {
   
   // Use your imagination to render suggestions.
   const renderSuggestion = suggestion => (
-    <div>
-        <img src={suggestion.picture} style={{width:"45px", height:"45px", borderRadius: "10px"}} />
-        
-        {suggestion.name}
-    </div>
+
+		<div style={{display:"flex", flexDirection: "row", marginTop:"10px", color:"#202020", fontSize:17}}>
+                <img src={suggestion.picture} style={{width:"45px", height:"45px", borderRadius: "10px"}} />					<div style={{display:"flex", flexDirection: "column", justifyContent: "space-evenly", marginLeft: "10px"}}>
+               <p style={{}}> {suggestion.name}</p>	
+		</div>
+	</div>
+
   );
   class searchUsers extends React.Component {
     constructor(props) {
