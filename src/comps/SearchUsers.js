@@ -54,7 +54,7 @@ const getSuggestions = value => {
     async getUserList(props){
         var resp = await axios({
             method: 'get',
-            url: "https://petcare-server.herokuapp.com/carers",
+            url: "https://petcare-server.herokuapp.com/users",
             data:{
               sessionId: props.sessionId
             }
