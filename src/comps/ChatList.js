@@ -12,11 +12,17 @@ constructor(props) {
   super(props);
   this.state = {
     lastMessages: [],
+    lastUpdated: "",
   };
   this.handleConversations = this.handleConversations.bind(this);
   this.socket = socketIOClient('https://petcare-server.herokuapp.com');
 
 }
+
+async updateList() {
+  this.loadUsersTalkedTo(this.props);
+}
+
 myCallbackSearch = (dataFromChild) => {
   this.props.callbackFromParentSearch(dataFromChild);
   console.log('CHECK HALF');
@@ -111,6 +117,12 @@ myCallback = (me, other, userA, userB) => {
   }
 
   render() {
+
+    if (this.state.lastUpdated != this.props.lastUpdated) {
+      this.setState({lastUpdated: this.props.lastUpdated});
+      this.updateList();
+    }
+
     return (
       <div className="container">
         

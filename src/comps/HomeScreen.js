@@ -10,10 +10,15 @@ import _ from 'lodash';
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {messages: [], data: null, mode:"inbox"}
-    this.componentWillMount = this.componentWillMount.bind(this);
-    
+    this.state = {
+      messages: [], 
+      data: null, 
+      mode:"inbox",
+      lastUpdateChatList: "",
+    }
+    this.componentWillMount = this.componentWillMount.bind(this);  
   }
+
   myCallbackSearch = (dataFromChild) => {
     this.setState({ data:{me: this.props.session.email,other: dataFromChild.name,otherId:dataFromChild.id}});
     console.log('CHECKMATE');
@@ -38,6 +43,10 @@ class HomeScreen extends React.Component {
     console.log(resp);
     this.setState({ messages: resp.data});
   };
+
+  updateChatList() {
+    this.setState({lastUpdateChatList: Date.now()});
+  }
 
   componentWillMount() {
     this.getMessages();
@@ -83,6 +92,7 @@ class HomeScreen extends React.Component {
                     other = {this.state.data.other}
                     meId = {this.props.session._id}
                     otherId = {this.state.data.otherId}
+                    updateChatList={this.updateChatList.bind(this)}
          />
       }
       list = <ChatList
@@ -92,6 +102,7 @@ class HomeScreen extends React.Component {
                 me={this.props.session.email}
                 sessionId={this.props.session._id}
                 callbackFromParentSearch={this.myCallbackSearch}
+                lastUpdated={this.state.lastUpdateChatList}
         />
     }
     else{
