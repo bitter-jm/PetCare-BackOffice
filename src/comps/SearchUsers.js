@@ -47,7 +47,7 @@ const getSuggestions = value => {
 
     componentWillMount() {
         let props = this.props;
-        console.log(props);
+        console.log('id:'+props.sessionId);
         this.getUserList(props);
     }
 
@@ -55,7 +55,7 @@ const getSuggestions = value => {
         var resp = await axios({
             method: 'get',
             url: "https://petcare-server.herokuapp.com/users",
-            data:{
+            params:{
               sessionId: props.sessionId
             }
           });

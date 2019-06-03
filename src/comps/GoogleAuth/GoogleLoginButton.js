@@ -21,10 +21,14 @@ export default class GoogleLoginButton extends Component {
 
   render (){
     if (this.state.redirect) {
-      return <Redirect to="/" />
+   
     }
     const responseGoogleSuccess = (response) => {
     console.log(response);
+    console.log(response.profileObj);
+    console.log(response.profileObj.email);
+    this.props.callbackFromParent({mail:response.profileObj.email});
+
 
     convertGoogleToken(response.Zi.access_token);
     this.signIn('google')

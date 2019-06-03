@@ -5,6 +5,7 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 import axios from 'axios'; 
 import _ from 'lodash';
+import { Dropdown } from 'semantic-ui-react'
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 class ChatItem extends Component {
@@ -29,7 +30,14 @@ class ChatItem extends Component {
 				}
 			});
 	}
-	
+
+	menu = <Dropdown text='File'>
+						<Dropdown.Menu>
+							<Dropdown.Item text='Delete Chat' />
+							<Dropdown.Item text='Block User' />
+						</Dropdown.Menu>
+					</Dropdown>;
+
   render() {
 		const date = <Moment fromNow date={this.props.date}/>
 		console.log(this.props.userA +'  ' + this.props.userB);
@@ -40,6 +48,7 @@ class ChatItem extends Component {
 					<img src={this.props.photo} style={{width:"60px", height:"60px", borderRadius: "10px"}} />
 					<div style={{display:"flex", flexDirection: "column", justifyContent: "space-evenly", marginLeft: "10px"}}>
 						<p style={{fontWeight:"bold"}}>{this.props.user}</p>
+						{this.menu}
 					</div>
 				</div>
 

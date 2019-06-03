@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import axios from 'axios'; 
+import "./css/LoginScreen.css";
 import GoogleLoginButton from "./GoogleAuth/GoogleLoginButton";
 
 
@@ -12,6 +13,13 @@ class LogInScreen extends React.Component {
       correo: "",
       password: "",
     };
+  }
+
+  myCallbackParent = (dataFromChild) => {
+    console.log('CHECK 3');
+    console.log(dataFromChild.mail);
+    this.setState({correo: dataFromChild.mail});
+    this.submit();
   }
 
   async submit() {
@@ -29,14 +37,22 @@ class LogInScreen extends React.Component {
 
   render() {
     return (
-      <div>
-         <GoogleLoginButton/>
-        <p>Correo:</p>
-        <input onChange={(event) => this.setState({correo: event.target.value})} type='text' value={this.state.correo} />
-        <p>Contraseña:</p>
-        <input onChange={(event) => this.setState({password: event.target.value})} type='password' value={this.state.password} style={{display:"block"}}/>
-        <button onClick={this.submit.bind(this)}>Login</button>
+      
+      <body>
+        <div class="back"></div>
+      <div class="form-login">
+        <form action="">
+          <h1>Petcare Desktop App</h1>
+          <GoogleLoginButton
+          callbackFromParent={this.myCallbackParent}
+         />
+          <div type="link">
+            <a href="#" >Download the mobile version!</a>
+            
+          </div>
+        </form>
       </div>
+    </body>
     );
   }
 }
