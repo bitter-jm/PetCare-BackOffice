@@ -57,6 +57,7 @@ class ChatDetail extends Component {
     
     this.getMessages();
     this.socket.emit("messageSent", this.state.otherId);
+    this.props.updateChatList();
   }
   
   componentWillMount() {
