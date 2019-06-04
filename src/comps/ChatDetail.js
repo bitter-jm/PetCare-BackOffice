@@ -19,7 +19,7 @@ class ChatDetail extends Component {
       newMessage: '',
     };
     this.socket = socketIOClient('https://petcare-server.herokuapp.com');
-
+    this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.getMessages();});
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -44,9 +44,9 @@ class ChatDetail extends Component {
     }
   }
 
-  mark(){
+  async mark(){
     console.log('HE ENTRAU');
-    var resp = axios({
+    var resp = await axios({
       method: 'put',
       url: "https://petcare-server.herokuapp.com/chat/mark",
       params: {
@@ -58,14 +58,14 @@ class ChatDetail extends Component {
     console.log(resp.data);
   }
 
-  async submit(state){
+  async submit(){
     var resp = await axios({
       method: 'post',
       url: "https://petcare-server.herokuapp.com/chats",
       data: {
-        from: state.meId,
-        to: state.otherId,
-        text: state.newMessage,
+        from: this.state.meId,
+        to: this.state.otherId,
+        text: this.state.newMessage,
       }
     });
     
@@ -79,39 +79,44 @@ class ChatDetail extends Component {
     this.updateMessages();
     const { endpoint } = this.state;
     
-    this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.getMessages();});
+    
   }
 
   updateMessages() {
     if (this.props.other == this.state.other) return
     this.setState({me:this.props.me, other:this.props.other});
     this.getMessages();
+    this.mark();
   }
 
   async getMessages() {
+    console.log('INICIO');
     console.log(this.props.meId);
     var resp = await axios({
       method: 'get',
       url: "https://petcare-server.herokuapp.com/chats",
-      params: {userA:this.props.meId}
+      params: {
+        userA:this.props.meId,
+        userB:this.props.otherId
+      }
     });
     var data = resp.data;
-    console.log('Messages: '+data);
+    //console.log('Messages: '+data);
     var indicesAEliminar = [];
     this.refs.input.clear();
-    data.forEach((m, i) => {
-      if ((m.from.email != this.state.me) && (m.to.email != this.state.me)) {
-        indicesAEliminar.push(i);
+    // data.forEach((m, i) => {
+    //   if ((m.from.email != this.state.me) && (m.to.email != this.state.me)) {
+    //     indicesAEliminar.push(i);
 
-      }
-      if ((m.from.email != this.state.other) && (m.to.email != this.state.other)) {
-        indicesAEliminar.push(i);
-      }
-    })
+    //   }
+    //   if ((m.from.email != this.state.other) && (m.to.email != this.state.other)) {
+    //     indicesAEliminar.push(i);
+    //   }
+    // })
     
-    for (var i = indicesAEliminar.length-1; i >= 0; --i) {
-      data.splice(indicesAEliminar[i],1);
-    }
+    // for (var i = indicesAEliminar.length-1; i >= 0; --i) {
+    //   data.splice(indicesAEliminar[i],1);
+    // }
 
     var messages = data.map((m) => {
       var position = "left";
@@ -125,9 +130,9 @@ class ChatDetail extends Component {
       };
     })
     this.setState({meId: this.props.meId, otherId: this.props.otherId});
-    this.socket.emit('identification', this.state.meId);
     this.setState({messages});
-    this.mark();
+    
+    console.log('FIN');
   }
   
 
@@ -143,8 +148,8 @@ class ChatDetail extends Component {
       downButtonBadge={true}
       dataSource={this.state.messages} />
     }
-    this.updateMessages();
     
+    this.updateMessages();
     return (
 
       <div style={{display:"flex", flexDirection:"column", justifyContent:"space-between", height: "100%"}}>

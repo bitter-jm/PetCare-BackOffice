@@ -14,9 +14,10 @@ constructor(props) {
     lastMessages: [],
     lastUpdated: "",
   };
-  this.handleConversations = this.handleConversations.bind(this);
+  
   this.socket = socketIOClient('https://petcare-server.herokuapp.com');
-
+  this.handleConversations = this.handleConversations.bind(this);
+  this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.handleConversations();});
 }
 
 async updateList() {
@@ -36,7 +37,7 @@ myCallback = (me, other, userA, userB) => {
 
   componentWillMount() {
     this.handleConversations();
-    this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.handleConversations();});
+    
 
   }
 
@@ -115,7 +116,6 @@ myCallback = (me, other, userA, userB) => {
     lastMessages.sort(function(a, b) {
       return new Date(b['date']) - new Date(a['date']);
     });
-    this.socket.emit('identification', userA);
     this.setState({lastMessages});
   }
 
