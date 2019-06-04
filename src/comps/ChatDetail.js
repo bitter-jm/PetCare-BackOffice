@@ -24,8 +24,6 @@ class ChatDetail extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  
-
   handleChange(event) {
     this.setState({newMessage: event.target.value});
   }
@@ -49,13 +47,15 @@ class ChatDetail extends Component {
     var resp = await axios({
       method: 'put',
       url: "https://petcare-server.herokuapp.com/chat/mark",
-      params: {
-        userA: this.state.userA,
-        userB: this.state.userB,
+      data: {
+        userA: this.props.meId,
+        userB: this.props.otherId,
       }
     });
     
-    console.log(resp.data);
+    //console.log(resp.data);
+    this.props.updateChatList();
+    console.log('HE ACABAU');
   }
 
   async submit(){
@@ -63,8 +63,8 @@ class ChatDetail extends Component {
       method: 'post',
       url: "https://petcare-server.herokuapp.com/chats",
       data: {
-        from: this.state.meId,
-        to: this.state.otherId,
+        from: this.props.meId,
+        to: this.props.otherId,
         text: this.state.newMessage,
       }
     });
@@ -101,6 +101,7 @@ class ChatDetail extends Component {
       }
     });
     var data = resp.data;
+    console.log(data);
     //console.log('Messages: '+data);
     var indicesAEliminar = [];
     this.refs.input.clear();
@@ -129,7 +130,6 @@ class ChatDetail extends Component {
         key: Math.random(),
       };
     })
-    this.setState({meId: this.props.meId, otherId: this.props.otherId});
     this.setState({messages});
     
     console.log('FIN');
@@ -139,7 +139,7 @@ class ChatDetail extends Component {
   render() {
     if (this.props.other == null || this.props.me ==null) return <div />;
     var list = "";
-    console.log("IDs: " + this.state.meId + " - " + this.state.otherId);
+    console.log("IDs: " + this.props.meId + " - " + this.props.otherId);
     if(this.state.messages != null){
       list = <MessageList
       className='message-list'
