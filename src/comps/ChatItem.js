@@ -70,7 +70,10 @@ class ChatItem extends Component {
 						<p style={{fontWeight:"bold"}}>{this.props.user}</p>
 					</div>
 					<div style={{display:"flex", flexDirection: "column", justifyContent: "space-evenly", marginLeft: "10px"}}>
-					{this.menu}
+						{this.menu}
+					</div>
+					<div style={{display:"flex", flexDirection: "column", justifyContent: "space-evenly", marginLeft: "10px"}}>
+					<p style={{fontWeight:"bold"}}>{this.props.pendingCount}</p>
 					</div>
 					
 				</div>

@@ -13,6 +13,10 @@ p{
     
 }
 
+.msg:hover{
+    background-color: whitesmoke;
+}
+
 .messageContent {
     display: block;
     white-space: nowrap; /* forces text to single line */
@@ -39,8 +43,6 @@ p{
     margin-bottom: 15px;
 }
 
-.msg:hover{
-    background-color: whitesmoke;
-}
+
 
 @import url("https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css");

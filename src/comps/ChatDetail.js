@@ -44,6 +44,20 @@ class ChatDetail extends Component {
     }
   }
 
+  mark(){
+    console.log('HE ENTRAU');
+    var resp = axios({
+      method: 'put',
+      url: "https://petcare-server.herokuapp.com/chat/mark",
+      params: {
+        userA: this.state.userA,
+        userB: this.state.userB,
+      }
+    });
+    
+    console.log(resp.data);
+  }
+
   async submit(state){
     var resp = await axios({
       method: 'post',
@@ -113,6 +127,7 @@ class ChatDetail extends Component {
     this.setState({meId: this.props.meId, otherId: this.props.otherId});
     this.socket.emit('identification', this.state.meId);
     this.setState({messages});
+    this.mark();
   }
   
 
