@@ -38,3 +38,5 @@ p{
 .chatList-date {
     margin-bottom: 15px;
 }
+
+@import url("https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css");

@@ -12,6 +12,7 @@ myCallback = (dataFromChild) => {
   console.log(dataFromChild);
 };
 
+
   render() {
     console.log('MSG: '+this.props.messages);
     return (
