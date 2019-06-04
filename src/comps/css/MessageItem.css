@@ -1,10 +1,10 @@
 .msg{
     /*border-collapse: collapse;*/
-    margin: 5px;
+    /* margin: 5px; */
     padding: 10px;
     margin-top:0px;
     padding-top: 0px;
-    border-bottom: 1px solid lightgray;
+    /* border-bottom: 1px solid lightgray; */
     /* background-color: #7F3033; */
 }
 
@@ -37,6 +37,10 @@ p{
 
 .chatList-date {
     margin-bottom: 15px;
+}
+
+.msg:hover{
+    background-color: whitesmoke;
 }
 
 @import url("https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css");
