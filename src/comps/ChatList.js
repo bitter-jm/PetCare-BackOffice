@@ -15,9 +15,8 @@ constructor(props) {
     lastUpdated: "",
   };
   
-  this.socket = socketIOClient('https://petcare-server.herokuapp.com');
+  
   this.handleConversations = this.handleConversations.bind(this);
-  this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.handleConversations();});
 }
 
 async updateList() {
@@ -37,8 +36,8 @@ myCallback = (me, other, userA, userB) => {
 
   componentWillMount() {
     this.handleConversations();
-    
-
+    this.socket = socketIOClient('https://petcare-server.herokuapp.com');
+    this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.handleConversations();});
   }
 
   handleConversations() {

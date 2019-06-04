@@ -58,9 +58,15 @@ class ChatItem extends Component {
 						</Dropdown.Menu>
 					</Dropdown>;
 
+	
+
   render() {
 		const date = <Moment fromNow date={this.props.date}/>
 		console.log(this.props.userA +'  ' + this.props.userB);
+		var countDiv = "";
+	if(this.props.pendingCount != 0){
+		countDiv= <p style={{fontWeight:"bold"}}>{this.props.pendingCount}</p>
+	} 
     return (	
 
 			<div className="msg" onClick={this.someFn}>
@@ -73,7 +79,7 @@ class ChatItem extends Component {
 						{this.menu}
 					</div>
 					<div style={{display:"flex", flexDirection: "column", justifyContent: "space-evenly", marginLeft: "10px"}}>
-					<p style={{fontWeight:"bold"}}>{this.props.pendingCount}</p>
+					{countDiv}
 					</div>
 					
 				</div>
