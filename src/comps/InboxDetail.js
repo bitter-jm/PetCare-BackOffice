@@ -7,6 +7,7 @@ import AnimatedRater from "./AnimatedRater";
 import ReactModal from 'react-modal';
 import axios from 'axios'; 
 import _ from 'lodash';
+import "./css/InboxDetail.css"
 
 class MessageDetail extends Component {
   constructor(props, context) {
@@ -95,15 +96,18 @@ class MessageDetail extends Component {
            className="Modal"
            overlayClassName="Overlay"
         >
-          <p>Petición Aceptada!</p>
-          <button onClick={this.handleCloseModal}>Close</button>
+          <div className="box-accept" style={{textAlign: "center", margin: "30px", fontSize:"15px"}}>
+            <p className="text-w">Petición Aceptada!</p>
+            <hr></hr>
+            <button className="button-w"  onClick={this.handleCloseModal}>Close</button>
+          </div>
         </ReactModal>
       </div>
   }
   else if(tag == 'Caring Request'){
     modalType = 
     
-    <div>
+  <div>
     <button className='button' onClick={this.handleOpenModal}>Aceptar reserva</button>
     
     <ReactModal 
@@ -113,8 +117,11 @@ class MessageDetail extends Component {
        className="Modal"
        overlayClassName="Overlay"
     >
-      <p>Reserva Aceptada!</p>
-      <button onClick={this.handleCloseModal}>Close</button>
+      <div className="box-accept" style={{textAlign: "center", margin: "30px", fontSize:"15px"}}>
+        <p className="text-w" >Reserva Aceptada!</p>
+        <hr></hr>
+        <button className="button-w" onClick={this.handleCloseModal}>Close</button>
+      </div>
     </ReactModal>
   </div>;
   }
@@ -129,9 +136,12 @@ class MessageDetail extends Component {
        className="Modal"
        overlayClassName="Overlay"
     >
-      <p>Petición Aceptada!</p>
-      <button onClick={this.handleCloseModal}>Close</button>
-    </ReactModal>
+      <div className="box-accept" style={{textAlign: "center", margin: "30px", fontSize:"15px"}}>
+        <p className="text-w" >Petición Aceptada!</p>
+        <hr></hr>
+        <button className="button-w" onClick={this.handleCloseModal}>Close</button>
+      </div>
+          </ReactModal>
   </div>
   }
   else if(tag == 'Ended Reservation'){
