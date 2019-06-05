@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 body{
     height:100%;
+    font-family: 'Roboto', sans-serif;
 }
 
 html, body {
@@ -8,21 +11,29 @@ html, body {
     -webkit-overflow-scrolling: touch !important;
     overflow: hidden !important;
     position: fixed;
+    font-family: 'Roboto', sans-serif;
+}
+
+#welcome{
+    margin-top: 28%;
+    margin-left: 37%;
+    font-size: 4em;
 }
 
 .Left{
     /* FALTA SCROLLBAR DE WEBKIT */
-    height:100%;
-    width:28% ;
+    height:95%;
+    width:29%;
     position: absolute;
     background-color: white;
-    border-right: 2px solid lightgray;
-    overflow:scroll;
+    /* border-right: 2px solid lightgray; */
+    overflow: none;
 }
 .Right{
-    height:100%;
-    width:70% ;
+    height:95%;
+    width:71%;
     right: 0;
     position: absolute;
     background-color: white;
 }
+

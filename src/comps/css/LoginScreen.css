@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+body, html {
+    height: 100%;
+  }
+  
+
+.back{
+/* The image used */
+  background-image: url("https://wallpaperaccess.com/full/435149.jpg");
+
+  /* Add the blur effect */
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.form-login{
+    background-color: rgba(223, 223, 223, 0.61); /* Fallback color */
+  color: black;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 25%;
+  padding: 20px;
+  text-align: center;
+}
+a{
+    margin: 4px;
+}
