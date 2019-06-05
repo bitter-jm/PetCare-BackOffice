@@ -22,16 +22,16 @@ html, body {
 
 .Left{
     /* FALTA SCROLLBAR DE WEBKIT */
-    height:91%;
-    width:30% ;
+    height:95%;
+    width:29%;
     position: absolute;
     background-color: white;
-    border-right: 2px solid lightgray;
+    /* border-right: 2px solid lightgray; */
     overflow: none;
 }
 .Right{
-    height:91%;
-    width:70% ;
+    height:95%;
+    width:71%;
     right: 0;
     position: absolute;
     background-color: white;

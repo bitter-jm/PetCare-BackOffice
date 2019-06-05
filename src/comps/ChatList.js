@@ -14,9 +14,9 @@ constructor(props) {
     lastMessages: [],
     lastUpdated: "",
   };
+  
+  
   this.handleConversations = this.handleConversations.bind(this);
-  this.socket = socketIOClient('https://petcare-server.herokuapp.com');
-
 }
 
 async updateList() {
@@ -36,8 +36,8 @@ myCallback = (me, other, userA, userB) => {
 
   componentWillMount() {
     this.handleConversations();
+    this.socket = socketIOClient('https://petcare-server.herokuapp.com');
     this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.handleConversations();});
-
   }
 
   handleConversations() {
@@ -86,12 +86,14 @@ myCallback = (me, other, userA, userB) => {
     usersChated.forEach((user) => {
       var message = "";
       var lastDate;
+      var pendingCount = 0;
       datos.forEach((msg => {
         if (msg.to.email == user || msg.from.email == user) {
           if(msg.from.email ==user){
             photo = msg.from.userPicture;
             userA = msg.to._id;
             userB = msg.from._id;
+            if(msg.read == false) pendingCount++;
           } 
           if(msg.to.email == user){
             photo = msg.to.userPicture;
@@ -103,16 +105,16 @@ myCallback = (me, other, userA, userB) => {
             message = msg.text;
             lastDate = newDate;
           }
+          
         }
       }));
       console.log(userA +'  ' + userB);
-      lastMessages.push({date:lastDate, message, user, photo, userA, userB});
+      lastMessages.push({date:lastDate, message, user, photo, userA, userB, pendingCount});
     });
     console.log(lastMessages);
     lastMessages.sort(function(a, b) {
       return new Date(b['date']) - new Date(a['date']);
     });
-    this.socket.emit('identification', userA);
     this.setState({lastMessages});
   }
 
@@ -154,6 +156,7 @@ myCallback = (me, other, userA, userB) => {
                               photo={message.photo}
                               userA={message.userA}
                               userB={message.userB}
+                              pendingCount={message.pendingCount}
                 />
                 </div>
               )}

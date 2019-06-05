@@ -6,6 +6,7 @@ import ChatDetail from "./ChatDetail";
 import "./css/HomeScreen.css";
 import axios from 'axios'; 
 import _ from 'lodash';
+import socketIOClient from 'socket.io-client';
 
 
 class HomeScreen extends React.Component {
@@ -18,6 +19,8 @@ class HomeScreen extends React.Component {
       lastUpdateChatList: "",
     }
     this.componentWillMount = this.componentWillMount.bind(this);  
+    this.socket = socketIOClient('https://petcare-server.herokuapp.com');
+    this.socket.emit('identification', this.props.session._id);
   }
 
   myCallbackSearch = (dataFromChild) => {

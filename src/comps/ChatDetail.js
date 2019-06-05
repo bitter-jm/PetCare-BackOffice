@@ -19,12 +19,10 @@ class ChatDetail extends Component {
       newMessage: '',
     };
     this.socket = socketIOClient('https://petcare-server.herokuapp.com');
-
+    this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.getMessages();});
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  
 
   handleChange(event) {
     this.setState({newMessage: event.target.value});
@@ -44,14 +42,30 @@ class ChatDetail extends Component {
     }
   }
 
-  async submit(state){
+  async mark(){
+    console.log('HE ENTRAU');
+    var resp = await axios({
+      method: 'put',
+      url: "https://petcare-server.herokuapp.com/chat/mark",
+      data: {
+        userA: this.props.meId,
+        userB: this.props.otherId,
+      }
+    });
+    
+    //console.log(resp.data);
+    this.props.updateChatList();
+    console.log('HE ACABAU');
+  }
+
+  async submit(){
     var resp = await axios({
       method: 'post',
       url: "https://petcare-server.herokuapp.com/chats",
       data: {
-        from: state.meId,
-        to: state.otherId,
-        text: state.newMessage,
+        from: this.props.meId,
+        to: this.props.otherId,
+        text: this.state.newMessage,
       }
     });
     
@@ -65,39 +79,45 @@ class ChatDetail extends Component {
     this.updateMessages();
     const { endpoint } = this.state;
     
-    this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.getMessages();});
+    
   }
 
   updateMessages() {
     if (this.props.other == this.state.other) return
     this.setState({me:this.props.me, other:this.props.other});
     this.getMessages();
+    this.mark();
   }
 
   async getMessages() {
+    console.log('INICIO');
     console.log(this.props.meId);
     var resp = await axios({
       method: 'get',
       url: "https://petcare-server.herokuapp.com/chats",
-      params: {userA:this.props.meId}
+      params: {
+        userA:this.props.meId,
+        userB:this.props.otherId
+      }
     });
     var data = resp.data;
-    console.log('Messages: '+data);
+    console.log(data);
+    //console.log('Messages: '+data);
     var indicesAEliminar = [];
     this.refs.input.clear();
-    data.forEach((m, i) => {
-      if ((m.from.email != this.state.me) && (m.to.email != this.state.me)) {
-        indicesAEliminar.push(i);
+    // data.forEach((m, i) => {
+    //   if ((m.from.email != this.state.me) && (m.to.email != this.state.me)) {
+    //     indicesAEliminar.push(i);
 
-      }
-      if ((m.from.email != this.state.other) && (m.to.email != this.state.other)) {
-        indicesAEliminar.push(i);
-      }
-    })
+    //   }
+    //   if ((m.from.email != this.state.other) && (m.to.email != this.state.other)) {
+    //     indicesAEliminar.push(i);
+    //   }
+    // })
     
-    for (var i = indicesAEliminar.length-1; i >= 0; --i) {
-      data.splice(indicesAEliminar[i],1);
-    }
+    // for (var i = indicesAEliminar.length-1; i >= 0; --i) {
+    //   data.splice(indicesAEliminar[i],1);
+    // }
 
     var messages = data.map((m) => {
       var position = "left";
@@ -110,16 +130,16 @@ class ChatDetail extends Component {
         key: Math.random(),
       };
     })
-    this.setState({meId: this.props.meId, otherId: this.props.otherId});
-    this.socket.emit('identification', this.state.meId);
     this.setState({messages});
+    
+    console.log('FIN');
   }
   
 
   render() {
     if (this.props.other == null || this.props.me ==null) return <div />;
     var list = "";
-    console.log("IDs: " + this.state.meId + " - " + this.state.otherId);
+    console.log("IDs: " + this.props.meId + " - " + this.props.otherId);
     if(this.state.messages != null){
       list = <MessageList
       className='message-list'
@@ -128,8 +148,8 @@ class ChatDetail extends Component {
       downButtonBadge={true}
       dataSource={this.state.messages} />
     }
-    this.updateMessages();
     
+    this.updateMessages();
     return (
 
       <div style={{display:"flex", flexDirection:"column", justifyContent:"space-between", height: "100%"}}>
