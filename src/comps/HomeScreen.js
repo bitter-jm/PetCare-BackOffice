@@ -21,6 +21,7 @@ class HomeScreen extends React.Component {
     this.componentWillMount = this.componentWillMount.bind(this);  
     this.socket = socketIOClient('https://petcare-server.herokuapp.com');
     this.socket.emit('identification', this.props.session._id);
+    console.log(this.props.session._id);
   }
 
   myCallbackSearch = (dataFromChild) => {
@@ -44,8 +45,8 @@ class HomeScreen extends React.Component {
       }
     });
     console.log('USER ID IS: '+ this.props.session._id);
-    console.log(resp);
     this.setState({ messages: resp.data});
+    console.log(resp.data);
   };
 
   updateChatList() {
@@ -68,7 +69,7 @@ class HomeScreen extends React.Component {
     console.log("Rendering: " + this.state.mode);
     var message,
     list;
-    if(this.state.mode == "inbox"){
+    if(this.state.mode === "inbox"){
       if(this.state.data != null){
         message = <InboxDetail id={this.state.data.id}
         from={this.state.data.from}
@@ -77,6 +78,9 @@ class HomeScreen extends React.Component {
         body={this.state.data.body}
         tag={this.state.data.tag}
         />  
+      }
+      else{
+        message = <p id='welcome'>Welcome!</p>;
       }
         list= <InboxList 
         changeToChat={this.changeToChat.bind(this)}
@@ -89,7 +93,7 @@ class HomeScreen extends React.Component {
         callbackFromParent={this.myCallbackParent}
         />
     }
-    else if(this.state.mode == "chat") {
+    else if(this.state.mode === "chat") {
       if(this.state.data != null) {
         message = <ChatDetail 
                     me = {this.state.data.me} 
@@ -98,6 +102,9 @@ class HomeScreen extends React.Component {
                     otherId = {this.state.data.otherId}
                     updateChatList={this.updateChatList.bind(this)}
          />
+      }
+      else{
+        message = <p id='welcome'>Welcome!</p>;
       }
       list = <ChatList
                 messages = {this.state.messages} 
@@ -108,9 +115,6 @@ class HomeScreen extends React.Component {
                 callbackFromParentSearch={this.myCallbackSearch}
                 lastUpdated={this.state.lastUpdateChatList}
         />
-    }
-    else{
-      message = <p id='welcome'>Welcome!</p>;
     }
     console.log(message);
     return(

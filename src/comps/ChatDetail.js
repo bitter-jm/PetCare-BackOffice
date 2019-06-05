@@ -18,8 +18,7 @@ class ChatDetail extends Component {
       messages: [],
       newMessage: '',
     };
-    this.socket = socketIOClient('https://petcare-server.herokuapp.com');
-    this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.getMessages();});
+    
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -58,7 +57,14 @@ class ChatDetail extends Component {
     console.log('HE ACABAU');
   }
 
+  componentDidMount(){
+    this.socket = socketIOClient('https://petcare-server.herokuapp.com');
+    this.socket.emit('identification', this.state.meId);
+    this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.getMessages();});
+  }
+
   async submit(){
+    this.socket = socketIOClient('https://petcare-server.herokuapp.com');
     var resp = await axios({
       method: 'post',
       url: "https://petcare-server.herokuapp.com/chats",

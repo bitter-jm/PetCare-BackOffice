@@ -14,7 +14,6 @@ myCallback = (dataFromChild) => {
 
 
   render() {
-    console.log('MSG: '+this.props.messages);
     return (
       <div className="container">
       <div style={{backgroundColor:"#337ab7", color: "white", fontWeight: "bold", display:"flex"}}>
@@ -32,11 +31,12 @@ myCallback = (dataFromChild) => {
             {this.props.messages.map((message) => {
               return(
                 <MessageItem  id={message.auxId}
+                              otherId={message.from._id}
                               from={message.from.email}
                               to={message.to.email}
                               fromPhoto={message.from.userPicture}
                               fromName={message.from.name}
-                              picture={message.auxField}
+                              aux={message.auxId2}
                               createdDate={message.createdDate}
                               subject={message.subject}
                               body={message.body}

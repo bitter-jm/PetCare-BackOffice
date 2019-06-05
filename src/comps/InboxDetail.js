@@ -13,11 +13,23 @@ class MessageDetail extends Component {
     super(props, context);
     this.state = {
       showModal: false,
-      valoracion:''
+      valoracion:'',
+      rate: 5
     };
-
+    this.updateInput = this.updateInput.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+  }
+
+  setRate({newrate}){
+    const { newrate: lastRate } = this.state
+    this.setState({rate:lastRate});
+    console.log(this.state.rate);
+  }
+
+  updateInput(event){
+    this.setState({valoracion:event.target.value});
+    console.log(this.state.valoracion);
   }
   
   handleOpenModal () {
@@ -56,9 +68,12 @@ class MessageDetail extends Component {
       method: 'put',
       url: "https://petcare-server.herokuapp.com/ratings",
       data: {
-        // from: state.meId,
-        // to: state.otherId,
-        // text: state.newMessage,
+        rating: this.state.rate,
+        comment: this.state.valoracion,
+        reservation: this.props.id,
+        pet: this.props.auxField,
+        carer: this.props.props.otherId,
+        sessionId: this.props.session._id
       }
     });
     console.log(this.props.id);
@@ -72,7 +87,7 @@ class MessageDetail extends Component {
     modalType = 
     <div>
         <button className='button' onClick={this.handleOpenModal}>Aceptar cuidador</button> 
-        <img src={this.props.auxField} style={{width:"300px", height:"300px", borderRadius: "5px"}} />
+        <img src={this.props.aux} style={{width:"300px", height:"300px", borderRadius: "5px"}} />
         <ReactModal 
            isOpen={this.state.showModal}
            contentLabel="onRequestClose Example"
@@ -131,9 +146,10 @@ class MessageDetail extends Component {
        overlayClassName="Overlay"
     >
       <p>Review your reservation!</p>
-      <AnimatedRater total={5} rating={2} />
-      <input value={this.state.valoracion}></input>
+      <AnimatedRater total={5} rating={this.state.rate} onRate={this.setRate.bind(this)}/>
+      <input value={this.state.valoracion} onChange={this.updateInput}></input>
       <button onClick={this.handleCloseModal}>Send Rating</button>
+      <button onClick={this.handleCloseModal}>Close</button>
 
 
     </ReactModal>
