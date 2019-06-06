@@ -60,7 +60,7 @@ class ChatDetail extends Component {
 
   componentDidMount(){
     this.socket = socketIOClient('https://petcare-server.herokuapp.com');
-    this.socket.emit('identification', this.state.meId);
+    this.socket.emit('identification', this.props.meId);
     this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.getMessages();});
   }
 
@@ -77,7 +77,7 @@ class ChatDetail extends Component {
     });
     
     this.getMessages();
-    this.socket.emit("messageSent", this.state.otherId);
+    this.socket.emit("messageSent", this.props.otherId);
     this.props.updateChatList();
   }
   

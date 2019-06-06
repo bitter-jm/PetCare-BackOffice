@@ -40,7 +40,7 @@ myCallback = (me, other, userA, userB) => {
 
   componentDidMount(){
     this.socket = socketIOClient('https://petcare-server.herokuapp.com');
-      this.socket.emit('identification', this.props.session._id);
+    this.socket.emit('identification', this.props.session._id);
     this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.handleConversations();});
   }
 
