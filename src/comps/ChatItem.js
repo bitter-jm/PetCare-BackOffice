@@ -61,7 +61,7 @@ class ChatItem extends Component {
 			method: 'put',
 			url: "https://petcare-server.herokuapp.com/user/"+props.session._id+"/unblock",
 			data:{
-				userId: props.otherId
+				userId: props.userB
 			}
 		});
 	}
@@ -73,7 +73,7 @@ class ChatItem extends Component {
 		let blockText = 'Block User';
 		//console.log(this.props.session._id);
 		console.log(this.props.session.hiddenUsers);
-		if(this.props.session.hiddenUsers.indexOf(this.props.otherId) > -1) blockText = 'Unblock User';
+		if(this.props.session.hiddenUsers.indexOf(this.props.userB) > -1) blockText = 'Unblock User';
 
 		let menu = <Dropdown text=''>
 		<Dropdown.Menu>
