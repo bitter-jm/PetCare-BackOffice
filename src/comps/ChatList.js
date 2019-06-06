@@ -40,23 +40,23 @@ myCallback = (me, other, userA, userB) => {
 
   componentDidMount(){
     this.socket = socketIOClient('https://petcare-server.herokuapp.com');
-      this.socket.emit('identification', this.props.sessionId);
+      this.socket.emit('identification', this.props.session._id);
     this.socket.on("messageReceived", () => {console.log('HOLA HOLA PROBANDO');this.handleConversations();});
   }
 
   handleConversations() {
     let props = this.props;
-    console.log(this.props.sessionId);
+    console.log(this.props.session._id);
     this.loadUsersTalkedTo(props);
   }
 
   async loadUsersTalkedTo(props) {
-    console.log(props.sessionId);
+    console.log(props.session._id);
     var resp = await axios({
       method: 'get',
       url: "https://petcare-server.herokuapp.com/chats",
       params:{
-        userA: props.sessionId
+        userA: props.session._id
       }
     });
     var datos = resp.data;
@@ -143,7 +143,7 @@ myCallback = (me, other, userA, userB) => {
       </div>
       <div style={{width:"100%"}}>
         <SearchUsers 
-          sessionId ={this.props.sessionId}
+          sessionId ={this.props.session._id}
           callbackFromParent={this.myCallbackSearch}
           >
         </SearchUsers>
@@ -161,6 +161,7 @@ myCallback = (me, other, userA, userB) => {
                               userA={message.userA}
                               userB={message.userB}
                               pendingCount={message.pendingCount}
+                              session={this.props.session}
                 />
                 </div>
               )}

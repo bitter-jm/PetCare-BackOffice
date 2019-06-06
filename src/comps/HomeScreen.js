@@ -73,6 +73,7 @@ class HomeScreen extends React.Component {
       if(this.state.data != null){
         message = <InboxDetail id={this.state.data.id}
         from={this.state.data.from}
+        otherId={this.state.data.otherId}
         createdDate={this.state.data.createdDate}
         subject={this.state.data.subject}
         body={this.state.data.body}
@@ -90,6 +91,7 @@ class HomeScreen extends React.Component {
           this.setState({messages: []});
           this.componentWillMount();
         }}
+        session = {this.props.session}
         callbackFromParent={this.myCallbackParent}
         />
     }
@@ -111,7 +113,7 @@ class HomeScreen extends React.Component {
                 changeToInbox={this.changeToInbox.bind(this)}
                 callbackFromParent={this.myCallbackParent}
                 me={this.props.session.email}
-                sessionId={this.props.session._id}
+                session = {this.props.session}
                 callbackFromParentSearch={this.myCallbackSearch}
                 lastUpdated={this.state.lastUpdateChatList}
         />

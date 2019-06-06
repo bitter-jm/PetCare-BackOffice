@@ -21,8 +21,13 @@ body, html {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+h1, a{
+  font-family: 'Montserrat', sans-serif;
+}
 .form-login{
-    background-color: rgba(223, 223, 223, 0.61); /* Fallback color */
+ 
+  background-color: rgba(223, 223, 223, 0.61); /* Fallback color */
   color: black;
   font-weight: bold;
   border: 3px solid #f1f1f1;

@@ -24,6 +24,7 @@ class ChatDetail extends Component {
   }
 
   handleChange(event) {
+    console.log(event.target.value);
     this.setState({newMessage: event.target.value});
   }
 

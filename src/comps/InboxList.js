@@ -41,6 +41,7 @@ myCallback = (dataFromChild) => {
                               subject={message.subject}
                               body={message.body}
                               tag={message.tag}
+                              session = {this.props.session}
                               renderParent = {this.props.renderParent}
                               callbackFromParent={this.myCallback}
                 />

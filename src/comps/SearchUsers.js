@@ -103,7 +103,7 @@ const getSuggestions = value => {
   
       // Autosuggest will pass through all these props to the input.
       const inputProps = {
-        placeholder: 'Choose a carer to start a chat',
+        placeholder: 'Find carers by email',
         value,
         onChange: this.onChange,
         

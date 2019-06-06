@@ -17,15 +17,46 @@ class MessageDetail extends Component {
       valoracion:'',
       rate: 5
     };
+    this.handleRejection = this.handleRejection.bind(this);
     this.updateInput = this.updateInput.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
-  setRate({newrate}){
-    const { newrate: lastRate } = this.state
-    this.setState({rate:lastRate});
-    console.log(this.state.rate);
+  handleRejection(){
+    var tag = this.props.tag;
+    if(tag  = 'Denied Carer') {
+      this.handleRejectCarer();
+    }
+    if(tag  = 'Denied Request') {
+      this.handleRejectReservation();
+    }
+  }
+
+  async handleRejectCarer(){
+    var resp = await axios({
+      method: 'put',
+      url: "https://petcare-server.herokuapp.com/user/"+this.props.otherId+"/demote",
+      data: {
+        sessionID: this.props.session._id
+      }
+    });
+    console.log(resp.data);
+  }
+
+  async handleRejectReservation(){
+    var resp = await axios({
+      method: 'delete',
+      url: "https://petcare-server.herokuapp.com/reservation/"+this.props.auxId,
+      // data: {
+      //   sessionID: this.props.session._id
+      // }
+    });
+    console.log(resp.data);
+  }
+
+  setRate({ rating }){
+    console.log(rating);
   }
 
   updateInput(event){
@@ -36,10 +67,10 @@ class MessageDetail extends Component {
   handleOpenModal () {
     this.setState({ showModal: true });
     var tag = this.props.tag;
-    if(tag  = 'Approval Request') {
+    if(tag  == 'Approval Request') {
       this.acceptCarer();
     }
-    if(tag  = 'Caring Request') {
+    if(tag  == 'Caring Request') {
       this.acceptReservation();
     }
   }
@@ -87,8 +118,13 @@ class MessageDetail extends Component {
   if(tag  == 'Approval Request') {
     modalType = 
     <div>
-        <button className='button' onClick={this.handleOpenModal}>Aceptar cuidador</button> 
-        <img src={this.props.aux} style={{width:"300px", height:"300px", borderRadius: "5px"}} />
+        <div>
+            <img src={this.props.aux} style={{width:"300px", height:"300px", borderRadius: "5px"}} />
+        </div>
+        <div>
+          <button className='buttonOK' onClick={this.handleOpenModal}>Accept carer</button> 
+          <button className='button' onClick={this.handleRejectCarer}>Reject carer</button>
+        </div>
         <ReactModal 
            isOpen={this.state.showModal}
            contentLabel="onRequestClose Example"
@@ -97,7 +133,7 @@ class MessageDetail extends Component {
            overlayClassName="Overlay"
         >
           <div className="box-accept" style={{textAlign: "center", margin: "30px", fontSize:"15px"}}>
-            <p className="text-w">Petición Aceptada!</p>
+            <p className="text-w">New carer activated!</p>
             <hr></hr>
             <button className="button-w"  onClick={this.handleCloseModal}>Close</button>
           </div>
@@ -108,8 +144,8 @@ class MessageDetail extends Component {
     modalType = 
     
   <div>
-    <button className='button' onClick={this.handleOpenModal}>Aceptar reserva</button>
-    
+    <button className='buttonOK' onClick={this.handleOpenModal}>Accept request</button>
+    <button className='button' onClick={this.handleRejectReservation}>Reject request</button>
     <ReactModal 
        isOpen={this.state.showModal}
        contentLabel="onRequestClose Example"
@@ -118,7 +154,7 @@ class MessageDetail extends Component {
        overlayClassName="Overlay"
     >
       <div className="box-accept" style={{textAlign: "center", margin: "30px", fontSize:"15px"}}>
-        <p className="text-w" >Reserva Aceptada!</p>
+        <p className="text-w" >Request accepted!</p>
         <hr></hr>
         <button className="button-w" onClick={this.handleCloseModal}>Close</button>
       </div>
@@ -137,7 +173,7 @@ class MessageDetail extends Component {
        overlayClassName="Overlay"
     >
       <div className="box-accept" style={{textAlign: "center", margin: "30px", fontSize:"15px"}}>
-        <p className="text-w" >Petición Aceptada!</p>
+        <a></a>
         <hr></hr>
         <button className="button-w" onClick={this.handleCloseModal}>Close</button>
       </div>
@@ -156,13 +192,25 @@ class MessageDetail extends Component {
        overlayClassName="Overlay"
     >
       <p>Review your reservation!</p>
-      <AnimatedRater total={5} rating={this.state.rate} onRate={this.setRate.bind(this)}/>
+      <AnimatedRater total={5} rating={2} onRate={this.setRate.bind(this)}/>
       <input value={this.state.valoracion} onChange={this.updateInput}></input>
       <button onClick={this.handleCloseModal}>Send Rating</button>
       <button onClick={this.handleCloseModal}>Close</button>
-
-
     </ReactModal>
+  </div>
+  }
+  else if(tag == 'Denied Carer'){
+    modalType = <div>
+    
+    <p>We're so sorry , {this.props.from} has denied your request to become a carer.<br/><br/><br/>Thank you for your comprehension,<br/>The Petcare team.</p>
+    
+  </div>
+  }
+  else if(tag == 'Denied Request'){
+    modalType = <div>
+    
+    <p>We're so sorry , {this.props.from} has denied your caring request. Contact the carer for more details</p>
+    
   </div>
   }
   else modalType = '';

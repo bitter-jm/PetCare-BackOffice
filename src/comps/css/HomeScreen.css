@@ -22,7 +22,7 @@ html, body {
 
 .Left{
     /* FALTA SCROLLBAR DE WEBKIT */
-    height:95%;
+    height:90%;
     width:29%;
     position: absolute;
     background-color: white;
