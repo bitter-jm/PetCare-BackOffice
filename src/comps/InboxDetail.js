@@ -23,31 +23,38 @@ class MessageDetail extends Component {
     this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
-  handleRejection(){
+  handleRejection(event){
+    
+    event.preventDefault();
     var tag = this.props.tag;
-    if(tag  = 'Denied Carer') {
-      this.handleRejectCarer();
+    var otherId = this.props.otherId;
+    var sessionId = this.props.sessionId;
+    var auxId = this.props.auxId;
+    console.log('ASADASD  '+otherId + ' ' +sessionId);
+    if(tag  == 'Denied Carer') {
+      this.handleRejectCarer(otherId,sessionId);
     }
-    if(tag  = 'Denied Request') {
-      this.handleRejectReservation();
+    if(tag  == 'Denied Request') {
+      this.handleRejectReservation(auxId);
     }
   }
 
-  async handleRejectCarer(){
+  async handleRejectCarer(otherId,sessionId){
+    console.log(otherId + ' ' + sessionId);
     var resp = await axios({
       method: 'put',
-      url: "https://petcare-server.herokuapp.com/user/"+this.props.otherId+"/demote",
+      url: "https://petcare-server.herokuapp.com/user/"+otherId+"/demote",
       data: {
-        sessionID: this.props.session._id
+        sessionID: sessionId
       }
     });
     console.log(resp.data);
   }
 
-  async handleRejectReservation(){
+  async handleRejectReservation(auxId){
     var resp = await axios({
       method: 'delete',
-      url: "https://petcare-server.herokuapp.com/reservation/"+this.props.auxId,
+      url: "https://petcare-server.herokuapp.com/reservation/"+auxId,
       // data: {
       //   sessionID: this.props.session._id
       // }

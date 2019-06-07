@@ -73,6 +73,7 @@ class HomeScreen extends React.Component {
       if(this.state.data != null){
         message = <InboxDetail id={this.state.data.id}
         from={this.state.data.from}
+        sessionId={this.props.session._id}
         otherId={this.state.data.otherId}
         createdDate={this.state.data.createdDate}
         subject={this.state.data.subject}
